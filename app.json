@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Koptisch Orthodox Arabisch Lesen",
+    "slug": "arabicforbeginner",
+    "scheme": "arabicforbeginner",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "com.martenmessiha.arabicforbeginner",
+      "adaptiveIcon": {
+        "backgroundColor": "#F5F1E8"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.martenmessiha.arabicforbeginner"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/96b28044-f875-48dd-8b02-2056dea2b740",
+      "fallbackToCacheTimeout": 0
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "96b28044-f875-48dd-8b02-2056dea2b740"
+      }
+    },
+    "owner": "martenmessiha"
+  }
+}
