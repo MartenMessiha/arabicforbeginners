@@ -452,7 +452,9 @@ export default function LetterLevelScreen() {
           ))}
         </View>
         {waitingForContinue ? (
-          <PrimaryButton label="Nächste Karte" onPress={handleContinue} />
+          <View style={styles.continueButtonWrap}>
+            <PrimaryButton label="Nächste Karte" onPress={handleContinue} />
+          </View>
         ) : null}
       </LearningCard>
 
@@ -630,6 +632,9 @@ const styles = StyleSheet.create({
   },
   answerGrid: {
     gap: 12
+  },
+  continueButtonWrap: {
+    marginTop: 6
   },
   answerCard: {
     minHeight: 72,
