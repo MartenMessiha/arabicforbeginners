@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ProgressBar } from "../components/ProgressBar";
@@ -389,11 +389,10 @@ export default function LetterLevelScreen() {
           <Text style={styles.deckLabel}>Lernlauf</Text>
           <Text style={styles.deckBadge}>{questions.length} Karten</Text>
         </View>
-        <Text style={styles.deckTitle}>
-          31 Buchstaben, nur eindeutige Formen aus isoliert, Anfang, Mitte und Ende.
-        </Text>
+        <Text style={styles.deckTitle}>31 Buchstaben in klaren, eindeutigen Formen</Text>
         <Text style={styles.deckText}>
-          Die Karten laufen ruhig durch, damit du jede Form bewusst sehen und vergleichen kannst.
+          Isoliert, Anfang, Mitte und Ende werden ruhig wiederholt, damit du jede Form bewusst
+          sehen und vergleichen kannst.
         </Text>
       </View>
 
@@ -405,8 +404,8 @@ export default function LetterLevelScreen() {
         <ZoomableImage
           source={require("../assets/alphabet-overview.png")}
           accessibilityLabel="Alphabet-Übersicht mit Name, Umschrift und Formen"
-          previewHeight={205}
-          caption="Öffnen und vergrößern."
+          previewHeight={236}
+          caption="Tippen zum Öffnen, doppelt tippen zum Zoomen."
         />
       </View>
 
@@ -516,21 +515,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
     paddingTop: 4,
     paddingBottom: theme.spacing.xl,
-    gap: 10,
+    gap: 12,
     backgroundColor: theme.colors.background
   },
   header: {
-    gap: 6
+    gap: 8
   },
   modeRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8
+    gap: 10
   },
   modeChip: {
     borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border
@@ -550,10 +549,10 @@ const styles = StyleSheet.create({
   deckCard: {
     backgroundColor: "#FBF8F1",
     borderWidth: 1,
-    borderColor: theme.colors.accent,
+    borderColor: "rgba(66,107,79,0.25)",
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 7
+    padding: 18,
+    gap: 8
   },
   deckRow: {
     flexDirection: "row",
@@ -579,23 +578,24 @@ const styles = StyleSheet.create({
     paddingVertical: 5
   },
   deckTitle: {
-    fontSize: 16,
-    lineHeight: 23,
+    fontSize: Platform.select({ ios: 21, android: 20, default: 21 }),
+    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
     color: theme.colors.text,
+    fontFamily: theme.fonts.display,
     fontWeight: "700"
   },
   deckText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     color: theme.colors.mutedText
   },
   overviewCard: {
-    backgroundColor: "#FBF8F1",
+    backgroundColor: "#F3F8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 6
+    padding: 18,
+    gap: 8
   },
   overviewRow: {
     flexDirection: "row",
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
     gap: 10
   },
   overviewLabel: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "700",
     color: theme.colors.text
   },
@@ -618,8 +618,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4
   },
   overviewText: {
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: 13,
+    lineHeight: 18,
     color: theme.colors.mutedText
   },
   supportCard: {
@@ -627,17 +627,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 8
+    padding: 18,
+    gap: 10
   },
   supportTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "700",
     color: theme.colors.text
   },
   supportText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     color: theme.colors.mutedText
   },
   supportList: {
@@ -671,21 +671,21 @@ const styles = StyleSheet.create({
     color: theme.colors.mutedText
   },
   prompt: {
-    fontSize: 24,
-    lineHeight: 32,
+    fontSize: Platform.select({ ios: 28, android: 26, default: 28 }),
+    lineHeight: Platform.select({ ios: 34, android: 32, default: 34 }),
     color: theme.colors.text,
-    marginBottom: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
     fontWeight: "600"
   },
   answerGrid: {
-    gap: 10
+    gap: 12
   },
   continueButtonWrap: {
-    marginTop: 6
+    marginTop: 8
   },
   answerCard: {
-    minHeight: 68,
-    borderRadius: theme.radius.lg,
+    minHeight: 72,
+    borderRadius: 22,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: "#FCFAF5",
@@ -708,7 +708,7 @@ const styles = StyleSheet.create({
     borderColor: "#D77A7A"
   },
   answerGlyph: {
-    fontSize: 32,
+    fontSize: 34,
     color: theme.colors.text,
     writingDirection: "rtl"
   },
@@ -716,13 +716,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
-    borderRadius: theme.radius.lg,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    gap: 6
+    borderRadius: 22,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 8
   },
   feedback: {
-    fontSize: 16,
+    fontSize: 17,
     color: theme.colors.accent,
     fontWeight: "600"
   },
@@ -733,8 +733,8 @@ const styles = StyleSheet.create({
     color: "#B24B4B"
   },
   answerHint: {
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 15,
+    lineHeight: 22,
     color: theme.colors.text,
     fontWeight: "600"
   },
@@ -745,39 +745,39 @@ const styles = StyleSheet.create({
     gap: 10
   },
   progressLabel: {
-    fontSize: 14,
+    fontSize: 13,
     color: theme.colors.mutedText
   },
   reviewHint: {
     backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
-    borderRadius: theme.radius.lg,
-    paddingHorizontal: 14,
-    paddingVertical: 10
+    borderRadius: 22,
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
   reviewText: {
-    fontSize: 14,
+    fontSize: 13,
     color: theme.colors.mutedText
   },
   finishCard: {
     backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 10,
+    padding: 18,
+    gap: 12,
     borderWidth: 1,
     borderColor: theme.colors.border
   },
   finishTitle: {
-    fontSize: 30,
+    fontSize: 32,
     fontFamily: theme.fonts.display,
     fontWeight: "700",
     color: theme.colors.text
   },
   finishText: {
-    fontSize: 17,
+    fontSize: 18,
     color: theme.colors.mutedText,
-    lineHeight: 25
+    lineHeight: 26
   },
   finishActions: {
     gap: 10,

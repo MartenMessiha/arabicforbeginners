@@ -61,6 +61,13 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        <View style={styles.heroHeading}>
+          <Text style={styles.heroTitle}>Arabisch lesen</Text>
+          <Text style={styles.heroSubtitle}>
+            Lerne Buchstaben, Zeichen und Wörter in ruhigen Schritten.
+          </Text>
+        </View>
+
         <View style={[styles.focusCard, compactLayout && styles.focusCardCompact]}>
           <View style={styles.focusHeader}>
             <View>
@@ -231,7 +238,7 @@ const styles = StyleSheet.create({
     gap: 5
   },
   hero: {
-    gap: 4
+    gap: 10
   },
   topRow: {
     flexDirection: "row",
@@ -269,6 +276,23 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     letterSpacing: 0.3
   },
+  heroHeading: {
+    gap: 6,
+    paddingTop: 2
+  },
+  heroTitle: {
+    fontSize: Platform.select({ ios: 34, android: 32, default: 34 }),
+    lineHeight: Platform.select({ ios: 36, android: 34, default: 36 }),
+    color: theme.colors.text,
+    fontFamily: theme.fonts.display,
+    fontWeight: "700"
+  },
+  heroSubtitle: {
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
+    lineHeight: Platform.select({ ios: 23, android: 21, default: 23 }),
+    color: theme.colors.mutedText,
+    maxWidth: 320
+  },
   continueCard: {
     display: "none"
   },
@@ -277,13 +301,13 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 12,
-    gap: 6,
+    padding: 16,
+    gap: 10,
     marginTop: 0
   },
   focusCardCompact: {
-    padding: 9,
-    gap: 5
+    padding: 14,
+    gap: 8
   },
   focusHeader: {
     flexDirection: "row",
@@ -298,8 +322,8 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   focusTitle: {
-    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    fontSize: Platform.select({ ios: 22, android: 21, default: 22 }),
+    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
     color: theme.colors.text,
     fontWeight: "700",
     marginTop: 0
@@ -316,13 +340,14 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   focusText: {
-    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
-    lineHeight: Platform.select({ ios: 16, android: 14, default: 16 }),
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
+    lineHeight: Platform.select({ ios: 22, android: 20, default: 22 }),
     color: theme.colors.mutedText
   },
   focusActions: {
     flexDirection: "column",
-    gap: 6
+    gap: 10,
+    paddingTop: 2
   },
   focusPrimaryButton: {
     width: "100%"
@@ -335,12 +360,12 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 11,
-    gap: 5,
+    padding: 16,
+    gap: 8,
     marginTop: 2
   },
   goalCardCompact: {
-    padding: 9
+    padding: 14
   },
   goalRow: {
     flexDirection: "row",
@@ -353,8 +378,8 @@ const styles = StyleSheet.create({
     color: theme.colors.text
   },
   goalValue: {
-    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
-    lineHeight: 22,
+    fontSize: Platform.select({ ios: 22, android: 21, default: 22 }),
+    lineHeight: 26,
     color: theme.colors.accent,
     fontWeight: "700"
   },
@@ -370,17 +395,17 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   goalHint: {
-    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
-    lineHeight: Platform.select({ ios: 15, android: 14, default: 15 }),
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   },
   dropdownList: {
-    gap: 5,
-    marginTop: 2
+    gap: 8,
+    marginTop: 6
   },
   dropdownText: {
-    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: Platform.select({ ios: 21, android: 19, default: 21 }),
     color: theme.colors.mutedText
   }
 });

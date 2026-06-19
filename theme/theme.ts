@@ -2,28 +2,28 @@ import { Platform } from "react-native";
 
 export const theme = {
   colors: {
-    background: "#F7F3EB",
-    backgroundAlt: "#FCFAF6",
-    surface: "#FFFDF9",
+    background: "#F7F3EA",
+    backgroundAlt: "#F1F7EF",
+    surface: "#FFFDF7",
     text: "#1F2A24",
-    mutedText: "#5C6B63",
-    accent: "#56735E",
-    accentSoft: "#E4EFE5",
+    mutedText: "#68776D",
+    accent: "#426B4F",
+    accentSoft: "#DDEBDD",
     onAccent: "#FFFFFF",
-    border: "#D9DDD6",
-    track: "#DCE5DB",
-    cardPressed: "#F1F4EE"
+    border: "#DFE5DC",
+    track: "#E6EDE4",
+    cardPressed: "#EAF2E8"
   },
   spacing: {
-    xs: 6,
-    sm: 10,
-    md: 14,
+    xs: 4,
+    sm: 8,
+    md: 12,
     lg: 20,
-    xl: 28
+    xl: 32
   },
   radius: {
-    lg: 18,
-    xl: 24
+    lg: 22,
+    xl: 28
   },
   fonts: {
     display: Platform.select({

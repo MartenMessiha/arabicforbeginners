@@ -14,17 +14,17 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.xl,
-    paddingVertical: Platform.select({ ios: 16, android: 14, default: 16 }),
-    paddingHorizontal: Platform.select({ ios: 16, android: 14, default: 16 }),
+    paddingVertical: Platform.select({ ios: 18, android: 16, default: 18 }),
+    paddingHorizontal: Platform.select({ ios: 18, android: 16, default: 18 }),
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    minHeight: Platform.select({ ios: 164, android: 156, default: 164 }),
+    borderColor: "rgba(36,57,44,0.10)",
+    minHeight: Platform.select({ ios: 160, android: 154, default: 160 }),
     justifyContent: "center",
-    gap: Platform.select({ ios: 10, android: 8, default: 10 }),
+    gap: Platform.select({ ios: 12, android: 10, default: 12 }),
     shadowColor: "#000",
-    shadowOpacity: 0.02,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 1
+    shadowOpacity: 0.06,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 2
   }
 });

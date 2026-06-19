@@ -61,22 +61,22 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.xl,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: "rgba(36,57,44,0.10)",
     overflow: "hidden",
     shadowColor: "#000",
-    shadowOpacity: 0.03,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 1
+    shadowOpacity: 0.05,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 7 },
+    elevation: 2
   },
   featuredCard: {
     borderColor: theme.colors.accent,
-    backgroundColor: theme.colors.backgroundAlt
+    backgroundColor: "#F3F8F1"
   },
   header: {
-    paddingHorizontal: 13,
-    paddingVertical: Platform.select({ ios: 10, android: 9, default: 10 }),
-    gap: 5
+    paddingHorizontal: 16,
+    paddingVertical: Platform.select({ ios: 14, android: 12, default: 14 }),
+    gap: 6
   },
   pressed: {
     backgroundColor: theme.colors.backgroundAlt
@@ -89,48 +89,48 @@ const styles = StyleSheet.create({
   titleGroup: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7
+    gap: 8
   },
   iconBadge: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.colors.accentSoft
   },
   iconText: {
     color: theme.colors.accent,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "700"
   },
   title: {
-    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
-    lineHeight: Platform.select({ ios: 20, android: 18, default: 20 }),
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: Platform.select({ ios: 22, android: 20, default: 22 }),
     color: theme.colors.text,
     fontWeight: "700"
   },
   subtitle: {
-    fontSize: Platform.select({ ios: 12, android: 11, default: 12 }),
-    lineHeight: Platform.select({ ios: 17, android: 16, default: 17 }),
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   },
   metaRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8
+    gap: 10
   },
   badge: {
     backgroundColor: theme.colors.backgroundAlt,
     borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderWidth: 1,
     borderColor: theme.colors.border
   },
   badgeText: {
     color: theme.colors.mutedText,
-    fontSize: Platform.select({ ios: 10, android: 9, default: 10 }),
+    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
     fontWeight: "700"
   },
   chevron: {
@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   body: {
-    paddingHorizontal: 13,
-    paddingTop: 2,
-    paddingBottom: Platform.select({ ios: 10, android: 9, default: 10 }),
-    gap: 8,
+    paddingHorizontal: 16,
+    paddingTop: 0,
+    paddingBottom: Platform.select({ ios: 14, android: 12, default: 14 }),
+    gap: 10,
     borderTopWidth: 1,
     borderTopColor: theme.colors.border
   }

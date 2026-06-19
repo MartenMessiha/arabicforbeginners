@@ -195,7 +195,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
 
 const styles = StyleSheet.create({
   previewWrap: {
-    gap: 6
+    gap: 8
   },
   previewPressed: {
     opacity: 0.9,
@@ -203,20 +203,21 @@ const styles = StyleSheet.create({
   },
   previewImage: {
     width: "100%",
-    borderRadius: theme.radius.lg,
+    borderRadius: theme.radius.xl,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: "rgba(36,57,44,0.10)",
     backgroundColor: theme.colors.backgroundAlt
   },
   previewHint: {
-    fontSize: 11,
+    fontSize: 12,
+    lineHeight: 16,
     color: theme.colors.accent,
     fontWeight: "700"
   },
   caption: {
-    fontSize: 12,
+    fontSize: 13,
     color: theme.colors.mutedText,
-    lineHeight: 16
+    lineHeight: 18
   },
   modalSafe: {
     flex: 1,

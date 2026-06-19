@@ -352,24 +352,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
     paddingTop: 4,
     paddingBottom: theme.spacing.xl,
-    gap: 10,
+    gap: 12,
     backgroundColor: theme.colors.background
   },
   containerCompact: {
     paddingTop: 4,
-    gap: 6
-  },
-  introCard: {
-    backgroundColor: theme.colors.accentSoft,
-    borderWidth: 1,
-    borderColor: theme.colors.accent,
-    borderRadius: theme.radius.xl,
-    padding: 14,
     gap: 8
   },
+  introCard: {
+    backgroundColor: "#F3F8F1",
+    borderWidth: 1,
+    borderColor: "rgba(66,107,79,0.24)",
+    borderRadius: theme.radius.xl,
+    padding: 18,
+    gap: 10
+  },
   introCardCompact: {
-    padding: 10,
-    gap: 6
+    padding: 14,
+    gap: 8
   },
   introTag: {
     fontSize: 12,
@@ -379,28 +379,28 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   introTitle: {
-    fontSize: 18,
-    lineHeight: 24,
+    fontSize: Platform.select({ ios: 21, android: 20, default: 21 }),
+    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   introText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     color: theme.colors.mutedText
   },
   lessonTabs: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8
+    gap: 10
   },
   lessonTab: {
     backgroundColor: theme.colors.surface,
     borderRadius: 999,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingHorizontal: 12,
-    paddingVertical: 8
+    paddingHorizontal: 14,
+    paddingVertical: 10
   },
   lessonTabActive: {
     backgroundColor: theme.colors.accentSoft,
@@ -410,7 +410,7 @@ const styles = StyleSheet.create({
     opacity: 0.9
   },
   lessonTabText: {
-    fontSize: 13,
+    fontSize: 14,
     color: theme.colors.text,
     fontWeight: "700"
   },
@@ -422,13 +422,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
-    gap: 6,
+    padding: 16,
+    gap: 8,
     alignItems: "center"
   },
   summaryCardCompact: {
-    padding: 10,
-    gap: 4
+    padding: 14,
+    gap: 6
   },
   summaryTitle: {
     fontSize: 13,
@@ -438,7 +438,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7
   },
   summarySymbol: {
-    fontSize: 42,
+    fontSize: 46,
     color: theme.colors.text,
     fontWeight: "700"
   },
@@ -446,18 +446,18 @@ const styles = StyleSheet.create({
     fontSize: 36
   },
   summaryName: {
-    fontSize: 18,
+    fontSize: 20,
     color: theme.colors.text,
     fontWeight: "700"
   },
   summaryEffect: {
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 15,
+    lineHeight: 22,
     color: theme.colors.mutedText,
     textAlign: "center"
   },
   summaryExample: {
-    fontSize: 28,
+    fontSize: 30,
     color: theme.colors.text,
     writingDirection: "rtl",
     marginTop: 4
@@ -466,29 +466,29 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   summaryFranko: {
-    fontSize: 16,
+    fontSize: 17,
     color: theme.colors.accent,
     fontWeight: "700"
   },
   summaryMeaning: {
-    fontSize: 13,
+    fontSize: 14,
     color: theme.colors.mutedText,
     textAlign: "center"
   },
   groupList: {
-    gap: theme.spacing.md
+    gap: 12
   },
   progressCard: {
     backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 8
+    padding: 16,
+    gap: 10
   },
   progressCardCompact: {
-    padding: 10,
-    gap: 6
+    padding: 14,
+    gap: 8
   },
   progressRow: {
     flexDirection: "row",
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
   progressPills: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8
+    gap: 10
   },
   progressPill: {
     backgroundColor: theme.colors.backgroundAlt,
@@ -546,19 +546,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 8
+    padding: 16,
+    gap: 10
   },
   groupTitle: {
-    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
-    lineHeight: 20,
+    fontSize: Platform.select({ ios: 17, android: 16, default: 17 }),
+    lineHeight: 22,
     fontWeight: "700",
     color: theme.colors.text
   },
   symbolGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8
+    gap: 10
   },
   symbolCard: {
     width: "48%",
@@ -566,9 +566,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: "#FBF8F1",
-    padding: 10,
-    gap: 4,
-    minHeight: 108
+    padding: 12,
+    gap: 6,
+    minHeight: 116
   },
   symbolCardActive: {
     borderColor: theme.colors.accent,
@@ -578,8 +578,8 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.99 }]
   },
   symbol: {
-    fontSize: Platform.select({ ios: 34, android: 32, default: 34 }),
-    lineHeight: Platform.select({ ios: 38, android: 36, default: 38 }),
+    fontSize: Platform.select({ ios: 36, android: 34, default: 36 }),
+    lineHeight: Platform.select({ ios: 40, android: 38, default: 40 }),
     color: theme.colors.text,
     textAlign: "center"
   },
@@ -605,21 +605,21 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
+    padding: 16,
+    gap: 8
+  },
+  tipCardCompact: {
     padding: 14,
     gap: 6
   },
-  tipCardCompact: {
-    padding: 10,
-    gap: 5
-  },
   tipTitle: {
-    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   tipText: {
-    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: Platform.select({ ios: 21, android: 19, default: 21 }),
     color: theme.colors.mutedText
   },
   quizTitle: {

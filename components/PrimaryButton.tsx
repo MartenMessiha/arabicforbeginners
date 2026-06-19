@@ -27,12 +27,12 @@ export function PrimaryButton({ label, onPress, variant = "solid", style }: Prop
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: 48,
-    borderRadius: theme.radius.lg,
+    minHeight: 56,
+    borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 18,
-    paddingVertical: 8
+    paddingHorizontal: 20,
+    paddingVertical: 12
   },
   solid: {
     backgroundColor: theme.colors.accent
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
   },
   label: {
     color: theme.colors.onAccent,
-    fontSize: 16,
-    lineHeight: 20,
+    fontSize: 18,
+    lineHeight: 22,
     fontWeight: "700"
   },
   ghostLabel: {
