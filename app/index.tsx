@@ -51,7 +51,7 @@ export default function HomeScreen() {
 
         <Text style={styles.title}>Koptisch-Orthodox Arabisch Lesen</Text>
         <Text style={styles.subtitle}>
-          Lerne arabische Schrift mit kirchlichen Wörtern, Sätzen und Texten.
+          Lerne arabische Schrift mit kirchlichen Wörtern, Sätzen und Texten Schritt für Schritt.
         </Text>
 
         <View style={styles.focusCard}>
@@ -100,26 +100,34 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        <View style={styles.quickStats}>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{displayTotals.letters}</Text>
-            <Text style={styles.statLabel}>Buchstaben</Text>
+        <View style={styles.overviewCard}>
+          <View style={styles.overviewHeader}>
+            <View>
+              <Text style={styles.overviewTitle}>Lernumfang</Text>
+              <Text style={styles.overviewText}>Alles ist lokal, übersichtlich und in Ruhe aufgebaut.</Text>
+            </View>
           </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{displayTotals.diacritics}</Text>
-            <Text style={styles.statLabel}>Vokalzeichen</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{displayTotals.words}</Text>
-            <Text style={styles.statLabel}>Wörter</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{displayTotals.sentences}</Text>
-            <Text style={styles.statLabel}>Sätze</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statValue}>{displayTotals.verses}</Text>
-            <Text style={styles.statLabel}>Verse</Text>
+          <View style={styles.quickStats}>
+            <View style={styles.statCard}>
+              <Text style={styles.statValue}>{displayTotals.letters}</Text>
+              <Text style={styles.statLabel}>Buchstaben</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Text style={styles.statValue}>{displayTotals.diacritics}</Text>
+              <Text style={styles.statLabel}>Vokalzeichen</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Text style={styles.statValue}>{displayTotals.words}</Text>
+              <Text style={styles.statLabel}>Wörter</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Text style={styles.statValue}>{displayTotals.sentences}</Text>
+              <Text style={styles.statLabel}>Sätze</Text>
+            </View>
+            <View style={styles.statCard}>
+              <Text style={styles.statValue}>{displayTotals.verses}</Text>
+              <Text style={styles.statLabel}>Verse</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -380,6 +388,28 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 6,
     marginTop: 2
+  },
+  overviewCard: {
+    backgroundColor: theme.colors.surface,
+    borderColor: theme.colors.border,
+    borderWidth: 1,
+    borderRadius: theme.radius.xl,
+    padding: 11,
+    gap: 8,
+    marginTop: 2
+  },
+  overviewHeader: {
+    gap: 2
+  },
+  overviewTitle: {
+    fontSize: 14,
+    fontWeight: "700",
+    color: theme.colors.text
+  },
+  overviewText: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: theme.colors.mutedText
   },
   statCard: {
     flexBasis: "31%",

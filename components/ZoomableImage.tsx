@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -27,6 +27,8 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
   const [visible, setVisible] = useState(false);
   const [scale, setScale] = useState(1);
   const lastTapAt = useRef(0);
+  const pendingTapPoint = useRef<{ x: number; y: number } | null>(null);
+  const scrollRef = useRef<ScrollView>(null);
   const { width, height } = useWindowDimensions();
 
   const imageFrame = useMemo(() => {
@@ -40,12 +42,14 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
 
   function open() {
     setScale(1);
+    pendingTapPoint.current = null;
     setVisible(true);
   }
 
   function close() {
     setVisible(false);
     setScale(1);
+    pendingTapPoint.current = null;
   }
 
   function zoom(delta: number) {
@@ -55,7 +59,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
     });
   }
 
-  function handleImageTap() {
+  function handleImageRelease(x: number, y: number) {
     const now = Date.now();
     const isDoubleTap = now - lastTapAt.current < 280;
     lastTapAt.current = now;
@@ -64,8 +68,35 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
       return;
     }
 
-    setScale((current) => (current > 1 ? 1 : 2.25));
+    if (scale > 1) {
+      pendingTapPoint.current = null;
+      setScale(1);
+      return;
+    }
+
+    pendingTapPoint.current = { x, y };
+    setScale(2.25);
   }
+
+  useEffect(() => {
+    if (!visible || scale <= 1 || !pendingTapPoint.current) {
+      return;
+    }
+
+    const point = pendingTapPoint.current;
+    const viewportWidth = Math.min(width * 0.9, 760);
+    const viewportHeight = Math.min(height * 0.72, 980);
+    const targetScale = scale;
+
+    requestAnimationFrame(() => {
+      scrollRef.current?.scrollTo({
+        x: Math.max(0, point.x * targetScale - viewportWidth / 2),
+        y: Math.max(0, point.y * targetScale - viewportHeight / 2),
+        animated: true
+      });
+      pendingTapPoint.current = null;
+    });
+  }, [height, scale, visible, width]);
 
   return (
     <>
@@ -110,6 +141,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
           </View>
 
           <ScrollView
+            ref={scrollRef}
             style={styles.viewer}
             contentContainerStyle={styles.viewerContent}
             maximumZoomScale={MAX_SCALE}
@@ -122,7 +154,10 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
             showsHorizontalScrollIndicator={false}
             scrollEventThrottle={16}
           >
-            <Pressable onPress={handleImageTap} style={styles.imagePressable}>
+            <Pressable
+              onPressIn={(event) => handleImageRelease(event.nativeEvent.locationX, event.nativeEvent.locationY)}
+              style={styles.imagePressable}
+            >
               <Image
                 source={source}
                 accessibilityLabel={accessibilityLabel}

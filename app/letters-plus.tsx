@@ -307,10 +307,14 @@ export default function LettersPlusScreen() {
 
       {allGroupsDone ? (
         <View style={styles.finishCard}>
-          <Text style={styles.finishTitle}>Alle Gruppen geschafft</Text>
+          <Text style={styles.finishTitle}>Alle drei Gruppen geschafft</Text>
           <Text style={styles.finishText}>
-            Du hast Grundzeichen, Verdopplung und Endungen einmal ruhig durchgearbeitet.
+            Du hast Grundzeichen, Verdopplung und Endungen ruhig durchgearbeitet. Die Vokalzeichen
+            sind jetzt gesammelt im Kopf und bereit für die nächsten Lesewege.
           </Text>
+          <View style={styles.finishPill}>
+            <Text style={styles.finishPillText}>3 / 3 Gruppen abgeschlossen</Text>
+          </View>
         </View>
       ) : null}
     </ScrollView>
@@ -651,5 +655,20 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 19,
     color: theme.colors.mutedText
+  },
+  finishPill: {
+    alignSelf: "flex-start",
+    backgroundColor: theme.colors.surface,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: theme.colors.accent,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    marginTop: 2
+  },
+  finishPillText: {
+    fontSize: 12,
+    color: theme.colors.accent,
+    fontWeight: "700"
   }
 });
