@@ -168,7 +168,9 @@ export default function LettersPlusScreen() {
         </Text>
         <Text style={styles.summaryName}>{selectedEntry.name}</Text>
         <Text style={styles.summaryEffect}>{selectedEntry.effect}</Text>
-        <Text style={styles.summaryExample}>{selectedEntry.exampleArabic}</Text>
+        <Text style={[styles.summaryExample, compactLayout && styles.summaryExampleCompact]}>
+          {selectedEntry.exampleArabic}
+        </Text>
         <Text style={styles.summaryFranko}>{selectedEntry.exampleFranko}</Text>
         <Text style={styles.summaryMeaning}>{selectedEntry.meaningGerman}</Text>
       </View>
@@ -220,7 +222,9 @@ export default function LettersPlusScreen() {
 
       <LearningCard>
         <Text style={styles.quizTitle}>Mini-Übung: {activeGroup}</Text>
-        <Text style={styles.quizPrompt}>{currentQuestion.prompt}</Text>
+        <Text style={[styles.quizPrompt, compactLayout && styles.quizPromptCompact]}>
+          {currentQuestion.prompt}
+        </Text>
         <View style={[styles.quizSymbolCard, compactLayout && styles.quizSymbolCardCompact]}>
           <Text style={styles.quizSymbolLabel}>Zeichen</Text>
           <Text style={[styles.quizSymbol, compactLayout && styles.quizSymbolCompact]}>
@@ -337,8 +341,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background
   },
   containerCompact: {
-    paddingTop: 10,
-    gap: 10
+    paddingTop: 8,
+    gap: 8
   },
   introCard: {
     backgroundColor: theme.colors.accentSoft,
@@ -349,7 +353,7 @@ const styles = StyleSheet.create({
     gap: 8
   },
   introCardCompact: {
-    padding: 12,
+    padding: 10,
     gap: 6
   },
   introTag: {
@@ -408,8 +412,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   summaryCardCompact: {
-    padding: 12,
-    gap: 5
+    padding: 10,
+    gap: 4
   },
   summaryTitle: {
     fontSize: 13,
@@ -424,7 +428,7 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   summarySymbolCompact: {
-    fontSize: 38
+    fontSize: 36
   },
   summaryName: {
     fontSize: 18,
@@ -442,6 +446,9 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     writingDirection: "rtl",
     marginTop: 4
+  },
+  summaryExampleCompact: {
+    fontSize: 24
   },
   summaryFranko: {
     fontSize: 16,
@@ -465,7 +472,7 @@ const styles = StyleSheet.create({
     gap: 8
   },
   progressCardCompact: {
-    padding: 12,
+    padding: 10,
     gap: 6
   },
   progressRow: {
@@ -545,7 +552,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundAlt,
     padding: 12,
     gap: 4,
-    minHeight: 120
+    minHeight: 114
   },
   symbolCardActive: {
     borderColor: theme.colors.accent,
@@ -584,7 +591,7 @@ const styles = StyleSheet.create({
     gap: 6
   },
   tipCardCompact: {
-    padding: 12,
+    padding: 10,
     gap: 5
   },
   tipTitle: {
@@ -608,6 +615,10 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     fontWeight: "600"
   },
+  quizPromptCompact: {
+    fontSize: 15,
+    lineHeight: 20
+  },
   quizSymbolCard: {
     borderRadius: theme.radius.lg,
     borderWidth: 1,
@@ -620,7 +631,7 @@ const styles = StyleSheet.create({
     gap: 3
   },
   quizSymbolCardCompact: {
-    paddingVertical: 10,
+    paddingVertical: 9,
     paddingHorizontal: 12
   },
   quizSymbolLabel: {
@@ -636,7 +647,7 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   quizSymbolCompact: {
-    fontSize: 42
+    fontSize: 38
   },
   quizOptions: {
     gap: 8

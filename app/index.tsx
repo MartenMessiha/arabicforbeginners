@@ -291,8 +291,8 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   titleCompact: {
-    fontSize: 26,
-    lineHeight: 32
+    fontSize: 24,
+    lineHeight: 30
   },
   subtitle: {
     color: theme.colors.mutedText,
@@ -300,8 +300,8 @@ const styles = StyleSheet.create({
     lineHeight: 22
   },
   subtitleCompact: {
-    fontSize: 14,
-    lineHeight: 20
+    fontSize: 13,
+    lineHeight: 19
   },
   continueCard: {
     display: "none"
@@ -316,8 +316,8 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   focusCardCompact: {
-    padding: 12,
-    gap: 6
+    padding: 10,
+    gap: 5
   },
   focusHeader: {
     flexDirection: "row",
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   goalCardCompact: {
-    padding: 11
+    padding: 10
   },
   goalRow: {
     flexDirection: "row",
@@ -423,8 +423,8 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   overviewCardCompact: {
-    padding: 12,
-    gap: 7
+    padding: 10,
+    gap: 6
   },
   overviewHeader: {
     gap: 2
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
   },
   statCardCompact: {
     flexBasis: "48%",
-    paddingVertical: 6
+    paddingVertical: 5
   },
   statValue: {
     fontSize: 19,
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
     color: theme.colors.text
   },
   statValueCompact: {
-    fontSize: 17
+    fontSize: 16
   },
   statLabel: {
     fontSize: 12,

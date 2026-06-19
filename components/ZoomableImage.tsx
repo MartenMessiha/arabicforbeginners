@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#111418",
     paddingHorizontal: theme.spacing.md,
-    paddingTop: 10,
+    paddingTop: 18,
     paddingBottom: theme.spacing.md
   },
   modalTopRow: {
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     gap: 12,
-    marginBottom: 10
+    marginBottom: 8
   },
   modalTitle: {
     fontSize: 20,
