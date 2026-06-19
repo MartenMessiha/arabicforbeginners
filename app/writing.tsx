@@ -203,7 +203,7 @@ export default function WritingLevelScreen() {
 
               <View style={styles.writingSurface}>
                 <View style={styles.writingSurfaceTopBand}>
-                  <Text style={styles.writingSurfaceTopBandText}>Start rechts</Text>
+                  <Text style={styles.writingSurfaceTopBandText}>Liniertes Blatt</Text>
                 </View>
                 <View style={styles.writingSurfaceHeader}>
                   <Text style={styles.writingSurfaceHeaderText}>Heftlinie</Text>
@@ -212,14 +212,16 @@ export default function WritingLevelScreen() {
                 <View style={styles.writingSurfaceStartMark} />
                 <View style={styles.writingSurfaceMargin} />
                 <View style={styles.writingSurfaceGrid}>
-                  {[0, 1, 2, 3].map((line) => (
+                  {[0, 1, 2, 3, 4, 5].map((line) => (
                     <View
                       key={line}
                       style={[
                         styles.writingSurfaceLine,
                         line === 1 && styles.writingSurfaceLineSecond,
                         line === 2 && styles.writingSurfaceLineThird,
-                        line === 3 && styles.writingSurfaceLineFourth
+                        line === 3 && styles.writingSurfaceLineFourth,
+                        line === 4 && styles.writingSurfaceLineFifth,
+                        line === 5 && styles.writingSurfaceLineSixth
                       ]}
                     />
                   ))}
@@ -567,18 +569,24 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 16,
     right: 16,
-    top: "28%",
+    top: "20%",
     borderBottomWidth: 1,
     borderBottomColor: "rgba(95, 122, 100, 0.14)"
   },
   writingSurfaceLineSecond: {
-    top: "48%"
+    top: "36%"
   },
   writingSurfaceLineThird: {
-    top: "68%"
+    top: "52%"
   },
   writingSurfaceLineFourth: {
+    top: "68%"
+  },
+  writingSurfaceLineFifth: {
     top: "84%"
+  },
+  writingSurfaceLineSixth: {
+    top: "92%"
   },
   writingSurfaceFooter: {
     position: "absolute",
