@@ -202,8 +202,13 @@ export default function WritingLevelScreen() {
               </View>
 
               <View style={styles.writingSurface}>
+                <View style={styles.writingSurfaceTopBand}>
+                  <Text style={styles.writingSurfaceTopBandText}>Start rechts</Text>
+                </View>
+                <View style={styles.writingSurfaceStartMark} />
                 <View style={styles.writingSurfaceLine} />
                 <View style={[styles.writingSurfaceLine, styles.writingSurfaceLineSecond]} />
+                <View style={[styles.writingSurfaceLine, styles.writingSurfaceLineThird]} />
                 <TextInput
                   ref={inputRef}
                   value={inputValue}
@@ -481,6 +486,33 @@ const styles = StyleSheet.create({
     backgroundColor: "#FCFAF5",
     overflow: "hidden"
   },
+  writingSurfaceTopBand: {
+    position: "absolute",
+    top: 10,
+    left: 12,
+    right: 12,
+    zIndex: 2,
+    flexDirection: "row",
+    justifyContent: "flex-end"
+  },
+  writingSurfaceTopBandText: {
+    fontSize: 11,
+    fontWeight: "700",
+    color: theme.colors.accent,
+    backgroundColor: "rgba(95, 122, 100, 0.08)",
+    borderRadius: 999,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    overflow: "hidden"
+  },
+  writingSurfaceStartMark: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    width: 18,
+    backgroundColor: "rgba(95, 122, 100, 0.08)"
+  },
   writingSurfaceLine: {
     position: "absolute",
     left: 16,
@@ -492,13 +524,16 @@ const styles = StyleSheet.create({
   writingSurfaceLineSecond: {
     top: "68%"
   },
+  writingSurfaceLineThird: {
+    top: "52%"
+  },
   input: {
     minHeight: 104,
     borderRadius: theme.radius.lg,
     borderWidth: 0,
     backgroundColor: "transparent",
     paddingHorizontal: 18,
-    paddingTop: 24,
+    paddingTop: 34,
     paddingBottom: 18,
     fontSize: 30,
     color: theme.colors.text,
