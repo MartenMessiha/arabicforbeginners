@@ -23,7 +23,8 @@ export default function HomeScreen() {
       words: 100,
       sentences: 100,
       paragraphs: 100,
-      verses: 100
+      verses: 100,
+      writing: 100
     } as const;
   }, []);
 
@@ -120,9 +121,11 @@ export default function HomeScreen() {
               { value: displayTotals.diacritics, label: "Vokalzeichen" },
               { value: displayTotals.words, label: "Wörter" },
               { value: displayTotals.sentences, label: "Sätze" },
+              { value: displayTotals.paragraphs, label: "Absätze" },
+              { value: displayTotals.writing, label: "Schreiben" },
               { value: displayTotals.verses, label: "Verse" }
             ]
-              .slice(0, compactLayout ? 4 : 5)
+              .slice(0, compactLayout ? 4 : 6)
               .map((item) => (
                 <View key={item.label} style={[styles.statCard, compactLayout && styles.statCardCompact]}>
                   <Text style={[styles.statValue, compactLayout && styles.statValueCompact]}>
@@ -225,6 +228,20 @@ export default function HomeScreen() {
             sortiert.
           </Text>
           <PrimaryButton label="Verse starten" onPress={() => router.push("/verses")} />
+        </DropdownSection>
+
+        <DropdownSection
+          title="Stufe 6: Schreiben"
+          subtitle="Wörter selbst auf Arabisch schreiben."
+          icon="6"
+          badge={`${displayTotals.writing}`}
+          expanded={openSection === "writing"}
+          onPress={() => setOpenSection((current) => (current === "writing" ? "" : "writing"))}
+        >
+          <Text style={styles.dropdownText}>
+            Du siehst ein Wort, hörst die Umschrift und schreibst das arabische Wort selbst.
+          </Text>
+          <PrimaryButton label="Schreiben starten" onPress={() => router.push("/writing")} />
         </DropdownSection>
       </View>
     </ScrollView>
