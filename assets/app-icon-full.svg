@@ -1,12 +1,12 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="1024" height="1024" rx="220" fill="#F7F3EB"/>
-  <circle cx="288" cy="238" r="84" fill="#E4EFE5"/>
-  <circle cx="752" cy="768" r="118" fill="#E4EFE5"/>
-  <rect x="180" y="170" width="664" height="684" rx="170" fill="#FFFDF9" stroke="#56735E" stroke-width="18"/>
-  <path d="M270 280C270 258.461 287.461 241 309 241H715C736.539 241 754 258.461 754 280V744C754 765.539 736.539 783 715 783H309C287.461 783 270 765.539 270 744V280Z" fill="#FCFAF6" stroke="#D9DDD6" stroke-width="10"/>
-  <rect x="328" y="322" width="368" height="26" rx="13" fill="#56735E"/>
-  <rect x="328" y="392" width="226" height="16" rx="8" fill="#D9DDD6"/>
-  <rect x="328" y="432" width="290" height="16" rx="8" fill="#D9DDD6"/>
-  <text x="512" y="600" text-anchor="middle" fill="#1F2A24" font-family="Georgia, serif" font-size="296" font-weight="700" direction="rtl">ا</text>
-  <text x="512" y="736" text-anchor="middle" fill="#56735E" font-family="Arial, sans-serif" font-size="56" font-weight="700" letter-spacing="8">ARABIC</text>
+  <circle cx="286" cy="236" r="92" fill="#E4EFE5"/>
+  <circle cx="756" cy="772" r="136" fill="#E4EFE5"/>
+  <rect x="170" y="162" width="684" height="700" rx="188" fill="#FFFDF9" stroke="#56735E" stroke-width="20"/>
+  <rect x="246" y="238" width="532" height="548" rx="116" fill="#FCFAF6" stroke="#D9DDD6" stroke-width="12"/>
+  <rect x="334" y="310" width="356" height="28" rx="14" fill="#56735E"/>
+  <rect x="334" y="390" width="194" height="16" rx="8" fill="#D9DDD6"/>
+  <rect x="334" y="430" width="250" height="16" rx="8" fill="#D9DDD6"/>
+  <text x="512" y="612" text-anchor="middle" fill="#203129" font-family="Georgia, serif" font-size="328" font-weight="700" direction="rtl">ا</text>
+  <path d="M356 702H668" stroke="#56735E" stroke-width="18" stroke-linecap="round"/>
 </svg>

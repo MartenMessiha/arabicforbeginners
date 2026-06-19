@@ -402,7 +402,7 @@ export default function LetterLevelScreen() {
           <Text style={styles.overviewBadge}>Zum Nachschlagen</Text>
         </View>
         <Text style={styles.overviewText}>
-          Nutze die Tabelle als ruhige Übersicht für Name, Umschrift und die vier Formen.
+          Ruhige Übersicht für Name, Umschrift, Formen und Links-Verbindung.
         </Text>
         <Image
           source={require("../assets/alphabet-overview.png")}
@@ -596,8 +596,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
-    gap: 10
+    padding: theme.spacing.sm,
+    gap: 8
   },
   overviewRow: {
     flexDirection: "row",
@@ -620,13 +620,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5
   },
   overviewText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 12,
+    lineHeight: 17,
     color: theme.colors.mutedText
   },
   overviewImage: {
     width: "100%",
-    aspectRatio: 546 / 1024,
+    height: 280,
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
