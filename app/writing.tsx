@@ -205,6 +205,10 @@ export default function WritingLevelScreen() {
                 <View style={styles.writingSurfaceTopBand}>
                   <Text style={styles.writingSurfaceTopBandText}>Start rechts</Text>
                 </View>
+                <View style={styles.writingSurfaceHeader}>
+                  <Text style={styles.writingSurfaceHeaderText}>Heftlinie</Text>
+                  <Text style={styles.writingSurfaceHeaderHint}>Arabisch beginnt rechts.</Text>
+                </View>
                 <View style={styles.writingSurfaceStartMark} />
                 <View style={styles.writingSurfaceMargin} />
                 <View style={styles.writingSurfaceGrid}>
@@ -219,6 +223,9 @@ export default function WritingLevelScreen() {
                       ]}
                     />
                   ))}
+                </View>
+                <View style={styles.writingSurfaceFooter}>
+                  <Text style={styles.writingSurfaceFooterText}>Langsam schreiben und dann prüfen.</Text>
                 </View>
                 <TextInput
                   ref={inputRef}
@@ -516,6 +523,23 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     overflow: "hidden"
   },
+  writingSurfaceHeader: {
+    position: "absolute",
+    top: 10,
+    left: 12,
+    zIndex: 2,
+    gap: 2
+  },
+  writingSurfaceHeaderText: {
+    fontSize: 11,
+    fontWeight: "700",
+    color: theme.colors.accent,
+    letterSpacing: 0.3
+  },
+  writingSurfaceHeaderHint: {
+    fontSize: 10,
+    color: theme.colors.mutedText
+  },
   writingSurfaceStartMark: {
     position: "absolute",
     top: 0,
@@ -556,14 +580,31 @@ const styles = StyleSheet.create({
   writingSurfaceLineFourth: {
     top: "84%"
   },
+  writingSurfaceFooter: {
+    position: "absolute",
+    left: 12,
+    right: 34,
+    bottom: 10,
+    zIndex: 2,
+    alignItems: "flex-start"
+  },
+  writingSurfaceFooterText: {
+    fontSize: 10,
+    color: theme.colors.mutedText,
+    backgroundColor: "rgba(249, 247, 240, 0.88)",
+    borderRadius: 999,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    overflow: "hidden"
+  },
   input: {
     minHeight: 104,
     borderRadius: theme.radius.lg,
     borderWidth: 0,
     backgroundColor: "transparent",
     paddingHorizontal: 18,
-    paddingTop: 34,
-    paddingBottom: 18,
+    paddingTop: 42,
+    paddingBottom: 24,
     fontSize: 30,
     color: theme.colors.text,
     writingDirection: "rtl",
