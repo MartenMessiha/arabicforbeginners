@@ -76,7 +76,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
           <View style={styles.modalTopRow}>
             <View>
               <Text style={styles.modalTitle}>Übersicht öffnen</Text>
-              <Text style={styles.modalSubtitle}>Mit + / - zoomen und zurücksetzen.</Text>
+              <Text style={styles.modalSubtitle}>Mit Pinch, Ziehen oder + / - zoomen.</Text>
             </View>
             <Pressable onPress={close} style={({ pressed }) => [styles.closeButton, pressed && styles.pressed]}>
               <Text style={styles.closeButtonText}>Schließen</Text>
@@ -101,10 +101,13 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
             contentContainerStyle={styles.viewerContent}
             maximumZoomScale={MAX_SCALE}
             minimumZoomScale={MIN_SCALE}
+            centerContent
             pinchGestureEnabled
+            bouncesZoom
             bounces={false}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
+            scrollEventThrottle={16}
           >
             <Image
               source={source}

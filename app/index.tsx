@@ -268,15 +268,15 @@ const styles = StyleSheet.create({
   },
   title: {
     color: theme.colors.text,
-    fontSize: 30,
-    lineHeight: 36,
+    fontSize: 28,
+    lineHeight: 34,
     fontFamily: theme.fonts.display,
     fontWeight: "700"
   },
   subtitle: {
     color: theme.colors.mutedText,
-    fontSize: 16,
-    lineHeight: 23
+    fontSize: 15,
+    lineHeight: 22
   },
   continueCard: {
     display: "none"
@@ -286,8 +286,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.accent,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 8,
+    padding: 12,
+    gap: 7,
     marginTop: 2
   },
   focusHeader: {
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   focusTitle: {
-    fontSize: 17,
+    fontSize: 16,
     color: theme.colors.text,
     fontWeight: "700",
     marginTop: 2
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
   },
   focusText: {
     fontSize: 12,
-    lineHeight: 18,
+    lineHeight: 17,
     color: theme.colors.mutedText
   },
   focusActions: {
@@ -339,8 +339,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 12,
-    gap: 7,
+    padding: 11,
+    gap: 6,
     marginTop: 2
   },
   goalRow: {
@@ -387,8 +387,8 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 9,
-    paddingHorizontal: 11,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
     gap: 1
   },
   statValue: {
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
     color: theme.colors.mutedText
   },
   dropdownList: {
-    gap: 8,
+    gap: 6,
     marginTop: 2
   },
   dropdownText: {

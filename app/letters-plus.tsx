@@ -20,15 +20,13 @@ type QuizQuestion = {
   answerKind: "symbol" | "name" | "effect";
 };
 
-function buildQuizQuestions() {
-  return shuffle(diacritics).map((entry, index) => {
+function buildQuizQuestions(entries: typeof diacritics) {
+  return shuffle(entries).map((entry, index) => {
     const useSymbolPrompt = index % 2 === 0;
     const distractors = shuffle(
-      diacritics
+      entries
         .filter((candidate) => candidate.id !== entry.id)
-        .map((candidate) =>
-          useSymbolPrompt ? candidate.name : candidate.effect
-        )
+        .map((candidate) => (useSymbolPrompt ? candidate.name : candidate.effect))
     ).slice(0, 3);
 
     if (useSymbolPrompt) {
@@ -63,16 +61,34 @@ export default function LettersPlusScreen() {
       })),
     []
   );
-  const [selectedId, setSelectedId] = useState<string>(diacritics[0]?.id ?? "");
-  const selectedEntry = diacritics.find((entry) => entry.id === selectedId) ?? diacritics[0];
-  const quizQuestions = useMemo(() => buildQuizQuestions(), []);
+  const [activeGroup, setActiveGroup] = useState<(typeof GROUP_ORDER)[number]>("Grundzeichen");
+  const currentGroupEntries =
+    groupedDiacritics.find((section) => section.group === activeGroup)?.items ??
+    groupedDiacritics[0].items;
+  const [selectedId, setSelectedId] = useState<string>(currentGroupEntries[0]?.id ?? "");
+  const selectedEntry =
+    currentGroupEntries.find((entry) => entry.id === selectedId) ?? currentGroupEntries[0];
+  const quizQuestions = useMemo(() => buildQuizQuestions(currentGroupEntries), [currentGroupEntries]);
   const [quizIndex, setQuizIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [quizResult, setQuizResult] = useState<"correct" | "wrong" | null>(null);
   const [quizLocked, setQuizLocked] = useState(false);
   const currentQuestion = quizQuestions[quizIndex % quizQuestions.length];
   const currentQuestionEntry =
-    diacritics.find((entry) => entry.id === currentQuestion.entryId) ?? diacritics[0];
+    currentGroupEntries.find((entry) => entry.id === currentQuestion.entryId) ??
+    currentGroupEntries[0];
+
+  function selectGroup(group: (typeof GROUP_ORDER)[number]) {
+    setActiveGroup(group);
+    const firstItem = groupedDiacritics.find((section) => section.group === group)?.items[0];
+    if (firstItem) {
+      setSelectedId(firstItem.id);
+    }
+    setQuizIndex(0);
+    setSelectedAnswer(null);
+    setQuizResult(null);
+    setQuizLocked(false);
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container} bounces={false}>
@@ -90,6 +106,24 @@ export default function LettersPlusScreen() {
         </Text>
       </View>
 
+      <View style={styles.lessonTabs}>
+        {GROUP_ORDER.map((group) => (
+          <Pressable
+            key={group}
+            onPress={() => selectGroup(group)}
+            style={({ pressed }) => [
+              styles.lessonTab,
+              activeGroup === group && styles.lessonTabActive,
+              pressed && styles.lessonTabPressed
+            ]}
+          >
+            <Text style={[styles.lessonTabText, activeGroup === group && styles.lessonTabTextActive]}>
+              {group}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
       <View style={styles.summaryCard}>
         <Text style={styles.summaryTitle}>Aktuell gewählt</Text>
         <Text style={styles.summarySymbol}>{selectedEntry.symbol}</Text>
@@ -101,38 +135,40 @@ export default function LettersPlusScreen() {
       </View>
 
       <View style={styles.groupList}>
-        {groupedDiacritics.map((section) => (
-          <View key={section.group} style={styles.groupCard}>
-            <Text style={styles.groupTitle}>{section.group}</Text>
-            <View style={styles.symbolGrid}>
-              {section.items.map((entry) => {
-                const active = entry.id === selectedId;
-                return (
-                  <Pressable
-                    key={entry.id}
-                    onPress={() => {
-                      setSelectedId(entry.id);
-                      recordLearningPoint(1);
-                    }}
-                    style={({ pressed }) => [
-                      styles.symbolCard,
-                      active && styles.symbolCardActive,
-                      pressed && styles.symbolCardPressed
-                    ]}
-                  >
-                    <Text style={[styles.symbol, active && styles.symbolActive]}>{entry.symbol}</Text>
-                    <Text style={[styles.symbolName, active && styles.symbolNameActive]}>
-                      {entry.name}
-                    </Text>
-                    <Text style={styles.symbolEffect} numberOfLines={2}>
-                      {entry.effect}
-                    </Text>
-                  </Pressable>
-                );
-              })}
+        {groupedDiacritics
+          .filter((section) => section.group === activeGroup)
+          .map((section) => (
+            <View key={section.group} style={styles.groupCard}>
+              <Text style={styles.groupTitle}>{section.group}</Text>
+              <View style={styles.symbolGrid}>
+                {section.items.map((entry) => {
+                  const active = entry.id === selectedId;
+                  return (
+                    <Pressable
+                      key={entry.id}
+                      onPress={() => {
+                        setSelectedId(entry.id);
+                        recordLearningPoint(1);
+                      }}
+                      style={({ pressed }) => [
+                        styles.symbolCard,
+                        active && styles.symbolCardActive,
+                        pressed && styles.symbolCardPressed
+                      ]}
+                    >
+                      <Text style={[styles.symbol, active && styles.symbolActive]}>{entry.symbol}</Text>
+                      <Text style={[styles.symbolName, active && styles.symbolNameActive]}>
+                        {entry.name}
+                      </Text>
+                      <Text style={styles.symbolEffect} numberOfLines={2}>
+                        {entry.effect}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </View>
 
       <View style={styles.tipCard}>
@@ -144,7 +180,7 @@ export default function LettersPlusScreen() {
       </View>
 
       <LearningCard>
-        <Text style={styles.quizTitle}>Mini-Übung</Text>
+        <Text style={styles.quizTitle}>Mini-Übung: {activeGroup}</Text>
         <Text style={styles.quizPrompt}>{currentQuestion.prompt}</Text>
         <View style={styles.quizSymbolWrap}>
           <Text style={styles.quizSymbol}>
@@ -270,6 +306,34 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 19,
     color: theme.colors.mutedText
+  },
+  lessonTabs: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8
+  },
+  lessonTab: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    paddingHorizontal: 12,
+    paddingVertical: 8
+  },
+  lessonTabActive: {
+    backgroundColor: theme.colors.accentSoft,
+    borderColor: theme.colors.accent
+  },
+  lessonTabPressed: {
+    opacity: 0.9
+  },
+  lessonTabText: {
+    fontSize: 13,
+    color: theme.colors.text,
+    fontWeight: "700"
+  },
+  lessonTabTextActive: {
+    color: theme.colors.accent
   },
   summaryCard: {
     backgroundColor: theme.colors.surface,
