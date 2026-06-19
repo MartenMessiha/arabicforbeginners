@@ -25,7 +25,13 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    overflow: "hidden"
+    overflow: "hidden",
+    backgroundColor: theme.colors.surface,
+    shadowColor: "#000",
+    shadowOpacity: 0.03,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 1
   },
   front: {
     backgroundColor: theme.colors.surface

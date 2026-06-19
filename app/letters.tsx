@@ -514,9 +514,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 16,
+    paddingTop: 12,
     paddingBottom: theme.spacing.xl,
-    gap: theme.spacing.md,
+    gap: 12,
     backgroundColor: theme.colors.background
   },
   header: {
@@ -552,7 +552,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.accent,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
+    padding: 16,
     gap: 8
   },
   deckRow: {
@@ -594,8 +594,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 8,
-    gap: 5
+    padding: 16,
+    gap: 6
   },
   overviewRow: {
     flexDirection: "row",
@@ -627,7 +627,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
+    padding: 16,
     gap: 8
   },
   supportTitle: {
@@ -717,7 +717,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.lg,
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     paddingVertical: 12,
     gap: 8
   },
@@ -753,7 +753,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.lg,
-    paddingHorizontal: 14,
+    paddingHorizontal: 16,
     paddingVertical: 12
   },
   reviewText: {
@@ -763,8 +763,8 @@ const styles = StyleSheet.create({
   finishCard: {
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.lg,
-    gap: theme.spacing.md,
+    padding: 16,
+    gap: 12,
     borderWidth: 1,
     borderColor: theme.colors.border
   },
@@ -780,7 +780,7 @@ const styles = StyleSheet.create({
     lineHeight: 25
   },
   finishActions: {
-    gap: theme.spacing.md,
-    marginTop: theme.spacing.sm
+    gap: 10,
+    marginTop: 4
   }
 });

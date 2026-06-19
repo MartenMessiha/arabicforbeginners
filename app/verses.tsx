@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
     paddingTop: 12,
     paddingBottom: theme.spacing.xl,
-    gap: theme.spacing.sm,
+    gap: 10,
     backgroundColor: theme.colors.background
   },
   liturgicalCard: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.accent,
-    padding: theme.spacing.md,
+    padding: 16,
     gap: 7
   },
   liturgicalTag: {
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: theme.spacing.md,
+    padding: 16,
     gap: 7
   },
   introTitle: {
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 10,
+    paddingVertical: 9,
     paddingHorizontal: 12
   },
   statusText: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   list: {
-    gap: theme.spacing.sm
+    gap: 10
   },
   verseStack: {
     gap: 10
