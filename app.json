@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Koptisch Orthodox Arabisch Lesen",
-    "slug": "arabicforbeginner",
-    "scheme": "arabicforbeginner",
+    "name": "arabicforbeginners",
+    "slug": "arabicforbeginners",
+    "scheme": "arabicforbeginners",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "plugins": [
