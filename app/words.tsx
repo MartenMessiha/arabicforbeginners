@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 16,
+    paddingTop: 14,
     paddingBottom: theme.spacing.xl,
     gap: theme.spacing.md,
     backgroundColor: theme.colors.background
@@ -139,15 +139,15 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   actions: {
-    gap: theme.spacing.md
+    gap: theme.spacing.sm
   },
   statusCard: {
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 12,
-    paddingHorizontal: 14
+    paddingVertical: 10,
+    paddingHorizontal: 12
   },
   statusText: {
     fontSize: 14,
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   progressBlock: {
-    gap: 10
+    gap: 8
   },
   progressRow: {
     flexDirection: "row",

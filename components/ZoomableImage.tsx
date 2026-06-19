@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: "#111418",
     paddingHorizontal: theme.spacing.md,
     paddingTop: 16,
     paddingBottom: theme.spacing.md
@@ -162,25 +162,25 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 26,
     fontWeight: "700",
-    color: theme.colors.text
+    color: "#F7F3EB"
   },
   modalSubtitle: {
     fontSize: 13,
     lineHeight: 18,
-    color: theme.colors.mutedText,
+    color: "#C7D0C7",
     marginTop: 2
   },
   closeButton: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#1B2125",
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: "#2A3338",
     paddingHorizontal: 12,
     paddingVertical: 8
   },
   closeButtonText: {
     fontSize: 13,
-    color: theme.colors.text,
+    color: "#F7F3EB",
     fontWeight: "700"
   },
   zoomBar: {
@@ -195,14 +195,14 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#1B2125",
     borderWidth: 1,
-    borderColor: theme.colors.border
+    borderColor: "#2A3338"
   },
   zoomButtonText: {
     fontSize: 22,
     lineHeight: 24,
-    color: theme.colors.text,
+    color: "#F7F3EB",
     fontWeight: "700"
   },
   resetButton: {
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   },
   zoomLabel: {
     fontSize: 14,
-    color: theme.colors.text,
+    color: "#F7F3EB",
     fontWeight: "700",
     minWidth: 52,
     textAlign: "center"
@@ -229,20 +229,21 @@ const styles = StyleSheet.create({
   viewer: {
     flex: 1,
     borderRadius: theme.radius.xl,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#0C1013",
     borderWidth: 1,
-    borderColor: theme.colors.border
+    borderColor: "#2A3338"
   },
   viewerContent: {
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.spacing.md
+    padding: theme.spacing.md,
+    flexGrow: 1
   },
   fullImage: {
     maxWidth: "100%",
     maxHeight: "100%",
     borderRadius: theme.radius.lg,
-    backgroundColor: theme.colors.backgroundAlt
+    backgroundColor: "#F7F3EB"
   },
   pressed: {
     opacity: 0.85,

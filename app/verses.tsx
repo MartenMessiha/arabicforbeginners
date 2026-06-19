@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.accent,
-    padding: theme.spacing.lg,
-    gap: 8
+    padding: theme.spacing.md,
+    gap: 7
   },
   liturgicalTag: {
     fontSize: 12,
@@ -208,8 +208,8 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: theme.spacing.lg,
-    gap: 8
+    padding: theme.spacing.md,
+    gap: 7
   },
   introTitle: {
     fontSize: 18,
@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 12,
-    paddingHorizontal: 14
+    paddingVertical: 10,
+    paddingHorizontal: 12
   },
   statusText: {
     fontSize: 14,
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm
   },
   verseStack: {
-    gap: 12
+    gap: 10
   },
   verseCard: {
     backgroundColor: theme.colors.backgroundAlt,

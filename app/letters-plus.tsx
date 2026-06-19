@@ -1,12 +1,57 @@
 import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, View, Pressable } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { LearningCard } from "../components/LearningCard";
+import { PrimaryButton } from "../components/PrimaryButton";
 import { ScreenHeader } from "../components/ScreenHeader";
 import { theme } from "../theme/theme";
 import { diacritics } from "../data/diacritics";
+import { shuffle } from "../utils/shuffle";
 import { useRecordLearningPath } from "../utils/learningPath";
 import { recordLearningPoint } from "../utils/learningProgress";
 
 const GROUP_ORDER = ["Grundzeichen", "Verdopplung", "Endungen"] as const;
+
+type QuizQuestion = {
+  id: string;
+  entryId: string;
+  prompt: string;
+  answer: string;
+  options: string[];
+  answerKind: "symbol" | "name" | "effect";
+};
+
+function buildQuizQuestions() {
+  return shuffle(diacritics).map((entry, index) => {
+    const useSymbolPrompt = index % 2 === 0;
+    const distractors = shuffle(
+      diacritics
+        .filter((candidate) => candidate.id !== entry.id)
+        .map((candidate) =>
+          useSymbolPrompt ? candidate.name : candidate.effect
+        )
+    ).slice(0, 3);
+
+    if (useSymbolPrompt) {
+      return {
+        id: entry.id,
+        entryId: entry.id,
+        prompt: `Wie heißt das Zeichen ${entry.symbol}?`,
+        answer: entry.name,
+        answerKind: "name" as const,
+        options: shuffle([entry.name, ...distractors])
+      };
+    }
+
+    return {
+      id: entry.id,
+      entryId: entry.id,
+      prompt: `Was macht ${entry.name}?`,
+      answer: entry.effect,
+      answerKind: "effect" as const,
+      options: shuffle([entry.effect, ...distractors])
+    };
+  });
+}
 
 export default function LettersPlusScreen() {
   useRecordLearningPath({ label: "Stufe 1+: Vokalzeichen", route: "/letters-plus" });
@@ -20,6 +65,14 @@ export default function LettersPlusScreen() {
   );
   const [selectedId, setSelectedId] = useState<string>(diacritics[0]?.id ?? "");
   const selectedEntry = diacritics.find((entry) => entry.id === selectedId) ?? diacritics[0];
+  const quizQuestions = useMemo(() => buildQuizQuestions(), []);
+  const [quizIndex, setQuizIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [quizResult, setQuizResult] = useState<"correct" | "wrong" | null>(null);
+  const [quizLocked, setQuizLocked] = useState(false);
+  const currentQuestion = quizQuestions[quizIndex % quizQuestions.length];
+  const currentQuestionEntry =
+    diacritics.find((entry) => entry.id === currentQuestion.entryId) ?? diacritics[0];
 
   return (
     <ScrollView contentContainerStyle={styles.container} bounces={false}>
@@ -89,6 +142,96 @@ export default function LettersPlusScreen() {
           Mit Sukun endet der Laut, mit Shadda wird er verdoppelt.
         </Text>
       </View>
+
+      <LearningCard>
+        <Text style={styles.quizTitle}>Mini-Übung</Text>
+        <Text style={styles.quizPrompt}>{currentQuestion.prompt}</Text>
+        <View style={styles.quizSymbolWrap}>
+          <Text style={styles.quizSymbol}>
+            {currentQuestion.answerKind === "name"
+              ? currentQuestionEntry.symbol
+              : currentQuestionEntry.name}
+          </Text>
+        </View>
+        <View style={styles.quizOptions}>
+          {currentQuestion.options.map((option) => {
+            const active = selectedAnswer === option;
+            const correct = option === currentQuestion.answer && quizResult === "correct";
+            const wrong = active && quizResult === "wrong";
+
+            return (
+              <Pressable
+                key={option}
+                onPress={() => {
+                  if (quizLocked) {
+                    return;
+                  }
+
+                  setSelectedAnswer(option);
+                  if (option === currentQuestion.answer) {
+                    setQuizResult("correct");
+                    setQuizLocked(true);
+                    recordLearningPoint(1);
+                    return;
+                  }
+
+                  setQuizResult("wrong");
+                }}
+                style={({ pressed }) => [
+                  styles.quizOption,
+                  correct && styles.quizOptionCorrect,
+                  wrong && styles.quizOptionWrong,
+                  pressed && styles.quizOptionPressed
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.quizOptionText,
+                    correct && styles.quizOptionTextCorrect,
+                    wrong && styles.quizOptionTextWrong
+                  ]}
+                >
+                  {option}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+        {quizResult ? (
+          <Text
+            style={[
+              styles.quizFeedback,
+              quizResult === "correct" && styles.quizFeedbackCorrect,
+              quizResult === "wrong" && styles.quizFeedbackWrong
+            ]}
+          >
+            {quizResult === "correct"
+              ? "Richtig. Weiter zum nächsten Zeichen."
+              : `Fast. Richtig ist: ${currentQuestion.answer}`}
+          </Text>
+        ) : null}
+        <View style={styles.quizActions}>
+          <PrimaryButton
+            label="Nächstes Zeichen"
+            onPress={() => {
+              setQuizIndex((current) => (current + 1) % quizQuestions.length);
+              setSelectedAnswer(null);
+              setQuizResult(null);
+              setQuizLocked(false);
+            }}
+          />
+          <PrimaryButton
+            label="Neu mischen"
+            variant="ghost"
+            onPress={() => {
+              setQuizIndex(0);
+              setSelectedAnswer(null);
+              setQuizResult(null);
+              setQuizLocked(false);
+            }}
+          />
+        </View>
+      </LearningCard>
     </ScrollView>
   );
 }
@@ -252,5 +395,75 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 19,
     color: theme.colors.mutedText
+  },
+  quizTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: theme.colors.text
+  },
+  quizPrompt: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: theme.colors.text,
+    fontWeight: "600"
+  },
+  quizSymbolWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 4
+  },
+  quizSymbol: {
+    fontSize: 34,
+    color: theme.colors.accent,
+    fontWeight: "700"
+  },
+  quizOptions: {
+    gap: 8
+  },
+  quizOption: {
+    borderRadius: theme.radius.lg,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.backgroundAlt,
+    paddingHorizontal: 12,
+    paddingVertical: 10
+  },
+  quizOptionPressed: {
+    opacity: 0.92,
+    transform: [{ scale: 0.99 }]
+  },
+  quizOptionCorrect: {
+    borderColor: theme.colors.accent,
+    backgroundColor: theme.colors.accentSoft
+  },
+  quizOptionWrong: {
+    borderColor: "#D77A7A",
+    backgroundColor: "#FDECEC"
+  },
+  quizOptionText: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: theme.colors.text,
+    fontWeight: "600"
+  },
+  quizOptionTextCorrect: {
+    color: theme.colors.accent
+  },
+  quizOptionTextWrong: {
+    color: "#B24B4B"
+  },
+  quizFeedback: {
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: "700"
+  },
+  quizFeedbackCorrect: {
+    color: theme.colors.accent
+  },
+  quizFeedbackWrong: {
+    color: "#B24B4B"
+  },
+  quizActions: {
+    gap: theme.spacing.sm
   }
 });
