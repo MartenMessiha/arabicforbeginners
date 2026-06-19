@@ -184,26 +184,46 @@ export default function WritingLevelScreen() {
             </View>
 
             <View style={[styles.inputCard, result === "correct" && styles.inputCardCorrect, result === "wrong" && styles.inputCardWrong]}>
-              <Text style={styles.inputLabel}>Arabisch schreiben</Text>
-              <TextInput
-                ref={inputRef}
-                value={inputValue}
-                onChangeText={(text) => {
-                  setInputValue(text);
-                  if (result) {
-                    setResult(null);
-                  }
-                }}
-                onSubmitEditing={checkAnswer}
-                placeholder="اكتب الكلمة هنا"
-                placeholderTextColor={theme.colors.mutedText}
-                style={styles.input}
-                autoCorrect={false}
-                spellCheck={false}
-                textAlign="right"
-                autoCapitalize="none"
-                returnKeyType="done"
-              />
+              <View style={styles.inputHeader}>
+                <Text style={styles.inputLabel}>Arabisch schreiben</Text>
+                <Text style={styles.inputHint}>Beginne rechts. Harakat sind hier nicht nötig.</Text>
+              </View>
+
+              <View style={styles.writingGuideRow}>
+                <View style={styles.writingGuideChip}>
+                  <Text style={styles.writingGuideChipText}>Rechts starten</Text>
+                </View>
+                <View style={styles.writingGuideChip}>
+                  <Text style={styles.writingGuideChipText}>Langsam schreiben</Text>
+                </View>
+                <View style={styles.writingGuideChip}>
+                  <Text style={styles.writingGuideChipText}>Ohne Vokalzeichen</Text>
+                </View>
+              </View>
+
+              <View style={styles.writingSurface}>
+                <View style={styles.writingSurfaceLine} />
+                <View style={[styles.writingSurfaceLine, styles.writingSurfaceLineSecond]} />
+                <TextInput
+                  ref={inputRef}
+                  value={inputValue}
+                  onChangeText={(text) => {
+                    setInputValue(text);
+                    if (result) {
+                      setResult(null);
+                    }
+                  }}
+                  onSubmitEditing={checkAnswer}
+                  placeholder="اكتب الكلمة هنا"
+                  placeholderTextColor={theme.colors.mutedText}
+                  style={styles.input}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  textAlign="right"
+                  autoCapitalize="none"
+                  returnKeyType="done"
+                />
+              </View>
             </View>
 
             <View style={styles.buttonStack}>
@@ -427,14 +447,59 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: theme.colors.text
   },
-  input: {
-    minHeight: 84,
+  inputHeader: {
+    gap: 4
+  },
+  inputHint: {
+    fontSize: 12,
+    lineHeight: 18,
+    color: theme.colors.mutedText
+  },
+  writingGuideRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8
+  },
+  writingGuideChip: {
+    backgroundColor: theme.colors.backgroundAlt,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 6
+  },
+  writingGuideChipText: {
+    fontSize: 12,
+    color: theme.colors.text,
+    fontWeight: "700"
+  },
+  writingSurface: {
+    position: "relative",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    backgroundColor: theme.colors.backgroundAlt,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    backgroundColor: "#FCFAF5",
+    overflow: "hidden"
+  },
+  writingSurfaceLine: {
+    position: "absolute",
+    left: 16,
+    right: 16,
+    top: "36%",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(95, 122, 100, 0.16)"
+  },
+  writingSurfaceLineSecond: {
+    top: "68%"
+  },
+  input: {
+    minHeight: 104,
+    borderRadius: theme.radius.lg,
+    borderWidth: 0,
+    backgroundColor: "transparent",
+    paddingHorizontal: 18,
+    paddingTop: 24,
+    paddingBottom: 18,
     fontSize: 30,
     color: theme.colors.text,
     writingDirection: "rtl",
