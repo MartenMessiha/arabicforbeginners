@@ -377,11 +377,12 @@ const styles = StyleSheet.create({
   quickStats: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "space-between",
     gap: 6,
     marginTop: 2
   },
   statCard: {
-    minWidth: "31%",
+    flexBasis: "31%",
     flexGrow: 1,
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.lg,

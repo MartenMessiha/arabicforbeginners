@@ -73,6 +73,13 @@ export default function LettersPlusScreen() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [quizResult, setQuizResult] = useState<"correct" | "wrong" | null>(null);
   const [quizLocked, setQuizLocked] = useState(false);
+  const [completedGroups, setCompletedGroups] = useState<Record<(typeof GROUP_ORDER)[number], boolean>>(
+    {
+      Grundzeichen: false,
+      Verdopplung: false,
+      Endungen: false
+    }
+  );
   const currentQuestion = quizQuestions[quizIndex % quizQuestions.length];
   const currentQuestionEntry =
     currentGroupEntries.find((entry) => entry.id === currentQuestion.entryId) ??
@@ -90,6 +97,9 @@ export default function LettersPlusScreen() {
     setQuizLocked(false);
   }
 
+  const groupProgress = GROUP_ORDER.filter((group) => completedGroups[group]).length;
+  const allGroupsDone = groupProgress === GROUP_ORDER.length;
+
   return (
     <ScrollView contentContainerStyle={styles.container} bounces={false}>
       <ScreenHeader
@@ -104,6 +114,28 @@ export default function LettersPlusScreen() {
           Tippe auf ein Zeichen, um Wirkung und Beispiel zu sehen. So lernst du die Markierungen
           ruhig und Schritt für Schritt.
         </Text>
+      </View>
+
+      <View style={styles.progressCard}>
+        <View style={styles.progressRow}>
+          <Text style={styles.progressLabel}>Gruppen gelernt</Text>
+          <Text style={styles.progressValue}>
+            {groupProgress} / {GROUP_ORDER.length}
+          </Text>
+        </View>
+        <View style={styles.progressTrack}>
+          <View style={[styles.progressFill, { width: `${(groupProgress / GROUP_ORDER.length) * 100}%` }]} />
+        </View>
+        <View style={styles.progressPills}>
+          {GROUP_ORDER.map((group) => (
+            <View key={group} style={[styles.progressPill, completedGroups[group] && styles.progressPillDone]}>
+              <Text style={[styles.progressPillText, completedGroups[group] && styles.progressPillTextDone]}>
+                {completedGroups[group] ? "✓ " : ""}
+                {group}
+              </Text>
+            </View>
+          ))}
+        </View>
       </View>
 
       <View style={styles.lessonTabs}>
@@ -207,6 +239,10 @@ export default function LettersPlusScreen() {
                   if (option === currentQuestion.answer) {
                     setQuizResult("correct");
                     setQuizLocked(true);
+                    setCompletedGroups((current) => ({
+                      ...current,
+                      [activeGroup]: true
+                    }));
                     recordLearningPoint(1);
                     return;
                   }
@@ -268,6 +304,15 @@ export default function LettersPlusScreen() {
           />
         </View>
       </LearningCard>
+
+      {allGroupsDone ? (
+        <View style={styles.finishCard}>
+          <Text style={styles.finishTitle}>Alle Gruppen geschafft</Text>
+          <Text style={styles.finishText}>
+            Du hast Grundzeichen, Verdopplung und Endungen einmal ruhig durchgearbeitet.
+          </Text>
+        </View>
+      ) : null}
     </ScrollView>
   );
 }
@@ -385,6 +430,65 @@ const styles = StyleSheet.create({
   },
   groupList: {
     gap: theme.spacing.md
+  },
+  progressCard: {
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radius.xl,
+    padding: theme.spacing.md,
+    gap: 8
+  },
+  progressRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  progressLabel: {
+    fontSize: 13,
+    color: theme.colors.mutedText,
+    fontWeight: "700"
+  },
+  progressValue: {
+    fontSize: 13,
+    color: theme.colors.accent,
+    fontWeight: "700"
+  },
+  progressTrack: {
+    height: 8,
+    borderRadius: 999,
+    backgroundColor: theme.colors.track,
+    overflow: "hidden"
+  },
+  progressFill: {
+    height: "100%",
+    borderRadius: 999,
+    backgroundColor: theme.colors.accent
+  },
+  progressPills: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8
+  },
+  progressPill: {
+    backgroundColor: theme.colors.backgroundAlt,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    paddingHorizontal: 10,
+    paddingVertical: 6
+  },
+  progressPillDone: {
+    backgroundColor: theme.colors.accentSoft,
+    borderColor: theme.colors.accent
+  },
+  progressPillText: {
+    fontSize: 11,
+    color: theme.colors.text,
+    fontWeight: "700"
+  },
+  progressPillTextDone: {
+    color: theme.colors.accent
   },
   groupCard: {
     backgroundColor: theme.colors.surface,
@@ -529,5 +633,23 @@ const styles = StyleSheet.create({
   },
   quizActions: {
     gap: theme.spacing.sm
+  },
+  finishCard: {
+    backgroundColor: theme.colors.accentSoft,
+    borderWidth: 1,
+    borderColor: theme.colors.accent,
+    borderRadius: theme.radius.xl,
+    padding: theme.spacing.md,
+    gap: 6
+  },
+  finishTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: theme.colors.text
+  },
+  finishText: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: theme.colors.mutedText
   }
 });

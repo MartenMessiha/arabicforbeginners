@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -26,6 +26,7 @@ const SCALE_STEP = 0.4;
 export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220, caption }: Props) {
   const [visible, setVisible] = useState(false);
   const [scale, setScale] = useState(1);
+  const lastTapAt = useRef(0);
   const { width, height } = useWindowDimensions();
 
   const imageFrame = useMemo(() => {
@@ -54,6 +55,18 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
     });
   }
 
+  function handleImageTap() {
+    const now = Date.now();
+    const isDoubleTap = now - lastTapAt.current < 280;
+    lastTapAt.current = now;
+
+    if (!isDoubleTap) {
+      return;
+    }
+
+    setScale((current) => (current > 1 ? 1 : 2.25));
+  }
+
   return (
     <>
       <Pressable
@@ -67,7 +80,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
           style={[styles.previewImage, { height: previewHeight }]}
           resizeMode="contain"
         />
-        <Text style={styles.previewHint}>Tippen zum Öffnen und Zoomen</Text>
+        <Text style={styles.previewHint}>Tippen zum Öffnen, doppelt tippen zum Zoomen</Text>
         {caption ? <Text style={styles.caption}>{caption}</Text> : null}
       </Pressable>
 
@@ -76,7 +89,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
           <View style={styles.modalTopRow}>
             <View>
               <Text style={styles.modalTitle}>Übersicht öffnen</Text>
-              <Text style={styles.modalSubtitle}>Mit Pinch, Ziehen oder + / - zoomen.</Text>
+              <Text style={styles.modalSubtitle}>Mit Pinch, Ziehen, Doppel-Tap oder + / - zoomen.</Text>
             </View>
             <Pressable onPress={close} style={({ pressed }) => [styles.closeButton, pressed && styles.pressed]}>
               <Text style={styles.closeButtonText}>Schließen</Text>
@@ -109,12 +122,14 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
             showsHorizontalScrollIndicator={false}
             scrollEventThrottle={16}
           >
-            <Image
-              source={source}
-              accessibilityLabel={accessibilityLabel}
-              style={[styles.fullImage, imageFrame]}
-              resizeMode="contain"
-            />
+            <Pressable onPress={handleImageTap} style={styles.imagePressable}>
+              <Image
+                source={source}
+                accessibilityLabel={accessibilityLabel}
+                style={[styles.fullImage, imageFrame]}
+                resizeMode="contain"
+              />
+            </Pressable>
           </ScrollView>
         </View>
       </Modal>
@@ -247,6 +262,10 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
     borderRadius: theme.radius.lg,
     backgroundColor: "#F7F3EB"
+  },
+  imagePressable: {
+    alignItems: "center",
+    justifyContent: "center"
   },
   pressed: {
     opacity: 0.85,
