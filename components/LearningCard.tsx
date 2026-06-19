@@ -1,9 +1,13 @@
 import { PropsWithChildren } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import { theme } from "../theme/theme";
 
-export function LearningCard({ children }: PropsWithChildren) {
-  return <View style={styles.card}>{children}</View>;
+type Props = PropsWithChildren<{
+  style?: StyleProp<ViewStyle>;
+}>;
+
+export function LearningCard({ children, style }: Props) {
+  return <View style={[styles.card, style]}>{children}</View>;
 }
 
 const styles = StyleSheet.create({

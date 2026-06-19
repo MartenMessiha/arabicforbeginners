@@ -3,6 +3,7 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -32,7 +33,18 @@ function normalizeArabicText(value: string) {
 
 export default function WritingLevelScreen() {
   useRecordLearningPath({ label: "Stufe 6: Schreiben", route: "/writing" });
-  const deck = useMemo(() => shuffle(writingExercises), []);
+  const [difficulty, setDifficulty] = useState<"gemischt" | "leicht" | "mittel" | "schwer">(
+    "gemischt"
+  );
+  const deck = useMemo(() => {
+    const shuffled = shuffle(writingExercises);
+    if (difficulty === "gemischt") {
+      return shuffled;
+    }
+
+    const filtered = shuffled.filter((entry) => entry.difficulty === difficulty);
+    return filtered.length > 0 ? filtered : shuffled;
+  }, [difficulty]);
   const [index, setIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [status, setStatus] = useState("Schreibe das arabische Wort selbst.");
@@ -44,6 +56,15 @@ export default function WritingLevelScreen() {
   const compactLayout = height < 760;
 
   const current = deck[index % deck.length];
+
+  useEffect(() => {
+    setIndex(0);
+    setInputValue("");
+    setStatus("Schreibe das arabische Wort selbst.");
+    setResult(null);
+    setShowSolution(false);
+    setSolvedCount(0);
+  }, [difficulty]);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -114,7 +135,35 @@ export default function WritingLevelScreen() {
             </Text>
           </View>
 
-          <LearningCard>
+          <View style={styles.difficultyRow}>
+            {[
+              { key: "gemischt" as const, label: "Gemischt" },
+              { key: "leicht" as const, label: "Leicht" },
+              { key: "mittel" as const, label: "Mittel" },
+              { key: "schwer" as const, label: "Schwer" }
+            ].map((item) => (
+              <Pressable
+                key={item.key}
+                onPress={() => setDifficulty(item.key)}
+                style={({ pressed }) => [
+                  styles.difficultyChip,
+                  difficulty === item.key && styles.difficultyChipActive,
+                  pressed && styles.difficultyChipPressed
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.difficultyChipText,
+                    difficulty === item.key && styles.difficultyChipTextActive
+                  ]}
+                >
+                  {item.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+
+          <LearningCard style={[styles.boardCard, compactLayout && styles.boardCardCompact]}>
             <View style={styles.practiceHeader}>
               <View>
                 <Text style={styles.practiceLabel}>Wort schreiben</Text>
@@ -131,6 +180,7 @@ export default function WritingLevelScreen() {
               <Text style={styles.promptLabel}>Bedeutung</Text>
               <Text style={styles.promptMeaning}>{current.german}</Text>
               <Text style={styles.promptFranko}>{current.franko}</Text>
+              <Text style={styles.promptHint}>Von rechts nach links schreiben.</Text>
             </View>
 
             <View style={[styles.inputCard, result === "correct" && styles.inputCardCorrect, result === "wrong" && styles.inputCardWrong]}>
@@ -151,6 +201,7 @@ export default function WritingLevelScreen() {
                 autoCorrect={false}
                 spellCheck={false}
                 textAlign="right"
+                autoCapitalize="none"
                 returnKeyType="done"
               />
             </View>
@@ -245,6 +296,45 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: theme.colors.mutedText
   },
+  difficultyRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8
+  },
+  difficultyChip: {
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 8
+  },
+  difficultyChipActive: {
+    backgroundColor: theme.colors.accentSoft,
+    borderColor: theme.colors.accent
+  },
+  difficultyChipPressed: {
+    opacity: 0.92
+  },
+  difficultyChipText: {
+    fontSize: 13,
+    color: theme.colors.text,
+    fontWeight: "700"
+  },
+  difficultyChipTextActive: {
+    color: theme.colors.accent
+  },
+  boardCard: {
+    backgroundColor: theme.colors.accentSoft,
+    borderColor: theme.colors.accent,
+    borderWidth: 1,
+    padding: 14,
+    gap: 10
+  },
+  boardCardCompact: {
+    padding: 12,
+    gap: 8
+  },
   practiceHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -279,7 +369,7 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   promptCard: {
-    backgroundColor: theme.colors.backgroundAlt,
+    backgroundColor: "#F9F7F0",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
@@ -310,6 +400,12 @@ const styles = StyleSheet.create({
     color: theme.colors.accent,
     fontWeight: "700"
   },
+  promptHint: {
+    fontSize: 12,
+    lineHeight: 18,
+    color: theme.colors.mutedText,
+    marginTop: 2
+  },
   inputCard: {
     borderRadius: theme.radius.xl,
     borderWidth: 1,
@@ -332,14 +428,14 @@ const styles = StyleSheet.create({
     color: theme.colors.text
   },
   input: {
-    minHeight: 58,
+    minHeight: 84,
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.backgroundAlt,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 28,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    fontSize: 30,
     color: theme.colors.text,
     writingDirection: "rtl",
     textAlign: "right",
