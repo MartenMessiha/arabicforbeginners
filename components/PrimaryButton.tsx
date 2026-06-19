@@ -27,7 +27,7 @@ export function PrimaryButton({ label, onPress, variant = "solid", style }: Prop
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: 50,
+    minHeight: 48,
     borderRadius: theme.radius.lg,
     alignItems: "center",
     justifyContent: "center",
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border
   },
   pressed: {
-    opacity: 0.92,
-    transform: [{ scale: 0.99 }]
+    opacity: 0.9,
+    transform: [{ scale: 0.985 }]
   },
   label: {
     color: theme.colors.onAccent,

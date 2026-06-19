@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     shadowColor: "#000",
     shadowOpacity: 0.03,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
     elevation: 1
   },
   featuredCard: {
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundAlt
   },
   header: {
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: 11,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
     gap: 6
   },
   pressed: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 13,
-    lineHeight: 18,
+    lineHeight: 19,
     color: theme.colors.mutedText
   },
   metaRow: {
@@ -138,10 +138,10 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   body: {
-    paddingHorizontal: theme.spacing.md,
-    paddingTop: 3,
-    paddingBottom: 10,
-    gap: 8,
+    paddingHorizontal: 14,
+    paddingTop: 2,
+    paddingBottom: 12,
+    gap: 10,
     borderTopWidth: 1,
     borderTopColor: theme.colors.border
   }

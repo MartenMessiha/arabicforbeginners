@@ -120,7 +120,9 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
           <View style={styles.modalTopRow}>
             <View>
               <Text style={styles.modalTitle}>Übersicht öffnen</Text>
-              <Text style={styles.modalSubtitle}>Mit Pinch, Ziehen, Doppel-Tap oder + / - zoomen.</Text>
+              <Text style={styles.modalSubtitle}>
+                Mit Doppel-Tap direkt auf einen Punkt zoomen oder mit Pinch frei bewegen.
+              </Text>
             </View>
             <Pressable onPress={close} style={({ pressed }) => [styles.closeButton, pressed && styles.pressed]}>
               <Text style={styles.closeButtonText}>Schließen</Text>
@@ -138,6 +140,10 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
             <Pressable onPress={() => setScale(1)} style={({ pressed }) => [styles.resetButton, pressed && styles.pressed]}>
               <Text style={styles.resetButtonText}>Reset</Text>
             </Pressable>
+          </View>
+
+          <View style={styles.zoomHint}>
+            <Text style={styles.zoomHintText}>Tipp: Doppelt tippen fokussiert die Stelle, die du anschaust.</Text>
           </View>
 
           <ScrollView
@@ -240,7 +246,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
-    marginBottom: 12
+    marginBottom: 8
+  },
+  zoomHint: {
+    backgroundColor: "#1A2024",
+    borderWidth: 1,
+    borderColor: "#2A3338",
+    borderRadius: theme.radius.lg,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    marginBottom: 10
+  },
+  zoomHintText: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: "#C7D0C7"
   },
   zoomButton: {
     width: 42,
@@ -300,7 +320,8 @@ const styles = StyleSheet.create({
   },
   imagePressable: {
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    minHeight: "100%"
   },
   pressed: {
     opacity: 0.85,
