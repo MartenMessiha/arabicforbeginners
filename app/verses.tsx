@@ -153,9 +153,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 14,
+    paddingTop: 12,
     paddingBottom: theme.spacing.xl,
-    gap: theme.spacing.md,
+    gap: theme.spacing.sm,
     backgroundColor: theme.colors.background
   },
   liturgicalCard: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   list: {
-    gap: theme.spacing.md
+    gap: theme.spacing.sm
   },
   verseStack: {
     gap: 12

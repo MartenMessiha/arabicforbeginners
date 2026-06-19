@@ -91,9 +91,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 24,
+    paddingTop: 16,
     paddingBottom: theme.spacing.xl,
-    gap: theme.spacing.lg,
+    gap: theme.spacing.md,
     backgroundColor: theme.colors.background
   },
   arabicParagraph: {

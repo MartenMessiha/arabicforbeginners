@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: theme.spacing.md,
-    paddingVertical: 13,
+    paddingVertical: 11,
     gap: 6
   },
   pressed: {
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   },
   body: {
     paddingHorizontal: theme.spacing.md,
-    paddingTop: 4,
-    paddingBottom: 12,
+    paddingTop: 3,
+    paddingBottom: 10,
     gap: 8,
     borderTopWidth: 1,
     borderTopColor: theme.colors.border

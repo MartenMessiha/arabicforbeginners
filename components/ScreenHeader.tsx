@@ -59,15 +59,15 @@ const styles = StyleSheet.create({
     gap: 6
   },
   title: {
-    fontSize: 26,
-    lineHeight: 32,
+    fontSize: 24,
+    lineHeight: 30,
     fontFamily: theme.fonts.display,
     color: theme.colors.text,
     fontWeight: "700"
   },
   subtitle: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: 15,
+    lineHeight: 22,
     color: theme.colors.mutedText
   }
 });

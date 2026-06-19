@@ -273,8 +273,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.accent,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 16,
-    gap: 10,
+    padding: 14,
+    gap: 8,
     marginTop: 2
   },
   focusHeader: {
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   focusTitle: {
-    fontSize: 18,
+    fontSize: 17,
     color: theme.colors.text,
     fontWeight: "700",
     marginTop: 2
@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   focusText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 12,
+    lineHeight: 18,
     color: theme.colors.mutedText
   },
   focusActions: {
@@ -326,8 +326,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 8,
+    padding: 12,
+    gap: 7,
     marginTop: 2
   },
   goalRow: {
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
     color: theme.colors.text
   },
   goalValue: {
-    fontSize: 20,
+    fontSize: 19,
     color: theme.colors.accent,
     fontWeight: "700"
   },
@@ -357,14 +357,14 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   goalHint: {
-    fontSize: 12,
-    lineHeight: 18,
+    fontSize: 11,
+    lineHeight: 16,
     color: theme.colors.mutedText
   },
   quickStats: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
+    gap: 6,
     marginTop: 2
   },
   statCard: {
@@ -374,12 +374,12 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingVertical: 9,
+    paddingHorizontal: 11,
     gap: 1
   },
   statValue: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: "700",
     color: theme.colors.text
   },

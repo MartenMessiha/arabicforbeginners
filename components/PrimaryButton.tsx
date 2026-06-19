@@ -27,7 +27,7 @@ export function PrimaryButton({ label, onPress, variant = "solid", style }: Prop
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: 54,
+    minHeight: 50,
     borderRadius: theme.radius.lg,
     alignItems: "center",
     justifyContent: "center",
