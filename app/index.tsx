@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { DropdownSection } from "../components/DropdownSection";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { diacritics } from "../data/diacritics";
@@ -14,6 +14,8 @@ export default function HomeScreen() {
   const [openSection, setOpenSection] = useState<string>("letters");
   const progress = useLearningProgress();
   const learningPath = useLearningPath();
+  const { height } = useWindowDimensions();
+  const compactLayout = height < 760;
   const displayTotals = useMemo(() => {
     return {
       letters: letters.length,
@@ -26,7 +28,10 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <ScrollView contentContainerStyle={styles.container} bounces={false}>
+    <ScrollView
+      contentContainerStyle={[styles.container, compactLayout && styles.containerCompact]}
+      bounces={false}
+    >
       <View style={styles.hero}>
         <View style={styles.topRow}>
           <Pressable
@@ -49,12 +54,14 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <Text style={styles.title}>Koptisch-Orthodox Arabisch Lesen</Text>
-        <Text style={styles.subtitle}>
+        <Text style={[styles.title, compactLayout && styles.titleCompact]}>
+          Koptisch-Orthodox Arabisch Lesen
+        </Text>
+        <Text style={[styles.subtitle, compactLayout && styles.subtitleCompact]}>
           Lerne arabische Schrift mit kirchlichen Wörtern, Sätzen und Texten Schritt für Schritt.
         </Text>
 
-        <View style={styles.focusCard}>
+        <View style={[styles.focusCard, compactLayout && styles.focusCardCompact]}>
           <View style={styles.focusHeader}>
             <View>
               <Text style={styles.focusLabel}>Weiterlernen</Text>
@@ -82,7 +89,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View style={styles.goalCard}>
+        <View style={[styles.goalCard, compactLayout && styles.goalCardCompact]}>
           <View style={styles.goalRow}>
             <View>
               <Text style={styles.goalLabel}>Tagesziel</Text>
@@ -100,7 +107,7 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        <View style={styles.overviewCard}>
+        <View style={[styles.overviewCard, compactLayout && styles.overviewCardCompact]}>
           <View style={styles.overviewHeader}>
             <View>
               <Text style={styles.overviewTitle}>Lernumfang</Text>
@@ -108,26 +115,24 @@ export default function HomeScreen() {
             </View>
           </View>
           <View style={styles.quickStats}>
-            <View style={styles.statCard}>
-              <Text style={styles.statValue}>{displayTotals.letters}</Text>
-              <Text style={styles.statLabel}>Buchstaben</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statValue}>{displayTotals.diacritics}</Text>
-              <Text style={styles.statLabel}>Vokalzeichen</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statValue}>{displayTotals.words}</Text>
-              <Text style={styles.statLabel}>Wörter</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statValue}>{displayTotals.sentences}</Text>
-              <Text style={styles.statLabel}>Sätze</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statValue}>{displayTotals.verses}</Text>
-              <Text style={styles.statLabel}>Verse</Text>
-            </View>
+            {[
+              { value: displayTotals.letters, label: "Buchstaben" },
+              { value: displayTotals.diacritics, label: "Vokalzeichen" },
+              { value: displayTotals.words, label: "Wörter" },
+              { value: displayTotals.sentences, label: "Sätze" },
+              { value: displayTotals.verses, label: "Verse" }
+            ]
+              .slice(0, compactLayout ? 4 : 5)
+              .map((item) => (
+                <View key={item.label} style={[styles.statCard, compactLayout && styles.statCardCompact]}>
+                  <Text style={[styles.statValue, compactLayout && styles.statValueCompact]}>
+                    {item.value}
+                  </Text>
+                  <Text style={[styles.statLabel, compactLayout && styles.statLabelCompact]}>
+                    {item.label}
+                  </Text>
+                </View>
+              ))}
           </View>
         </View>
       </View>
@@ -235,6 +240,10 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
     backgroundColor: theme.colors.background
   },
+  containerCompact: {
+    paddingTop: 6,
+    gap: 8
+  },
   hero: {
     gap: 10
   },
@@ -281,10 +290,18 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.display,
     fontWeight: "700"
   },
+  titleCompact: {
+    fontSize: 26,
+    lineHeight: 32
+  },
   subtitle: {
     color: theme.colors.mutedText,
     fontSize: 15,
     lineHeight: 22
+  },
+  subtitleCompact: {
+    fontSize: 14,
+    lineHeight: 20
   },
   continueCard: {
     display: "none"
@@ -297,6 +314,10 @@ const styles = StyleSheet.create({
     padding: 14,
     gap: 7,
     marginTop: 2
+  },
+  focusCardCompact: {
+    padding: 12,
+    gap: 6
   },
   focusHeader: {
     flexDirection: "row",
@@ -351,6 +372,9 @@ const styles = StyleSheet.create({
     gap: 6,
     marginTop: 2
   },
+  goalCardCompact: {
+    padding: 11
+  },
   goalRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -398,6 +422,10 @@ const styles = StyleSheet.create({
     gap: 8,
     marginTop: 2
   },
+  overviewCardCompact: {
+    padding: 12,
+    gap: 7
+  },
   overviewHeader: {
     gap: 2
   },
@@ -422,14 +450,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     gap: 1
   },
+  statCardCompact: {
+    flexBasis: "48%",
+    paddingVertical: 6
+  },
   statValue: {
     fontSize: 19,
     fontWeight: "700",
     color: theme.colors.text
   },
+  statValueCompact: {
+    fontSize: 17
+  },
   statLabel: {
     fontSize: 12,
     color: theme.colors.mutedText
+  },
+  statLabelCompact: {
+    fontSize: 11
   },
   dropdownList: {
     gap: 6,

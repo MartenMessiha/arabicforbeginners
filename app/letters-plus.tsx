@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ScreenHeader } from "../components/ScreenHeader";
@@ -73,6 +73,8 @@ export default function LettersPlusScreen() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [quizResult, setQuizResult] = useState<"correct" | "wrong" | null>(null);
   const [quizLocked, setQuizLocked] = useState(false);
+  const { height } = useWindowDimensions();
+  const compactLayout = height < 760;
   const [completedGroups, setCompletedGroups] = useState<Record<(typeof GROUP_ORDER)[number], boolean>>(
     {
       Grundzeichen: false,
@@ -101,13 +103,16 @@ export default function LettersPlusScreen() {
   const allGroupsDone = groupProgress === GROUP_ORDER.length;
 
   return (
-    <ScrollView contentContainerStyle={styles.container} bounces={false}>
+    <ScrollView
+      contentContainerStyle={[styles.container, compactLayout && styles.containerCompact]}
+      bounces={false}
+    >
       <ScreenHeader
         title="Stufe 1+: Vokalzeichen"
         subtitle="Kleine Zeichen, die das Lesen und die Aussprache verändern."
       />
 
-      <View style={styles.introCard}>
+      <View style={[styles.introCard, compactLayout && styles.introCardCompact]}>
         <Text style={styles.introTag}>Tashkīl / Harakāt</Text>
         <Text style={styles.introTitle}>Die Zeichen über und unter den Buchstaben</Text>
         <Text style={styles.introText}>
@@ -116,7 +121,7 @@ export default function LettersPlusScreen() {
         </Text>
       </View>
 
-      <View style={styles.progressCard}>
+      <View style={[styles.progressCard, compactLayout && styles.progressCardCompact]}>
         <View style={styles.progressRow}>
           <Text style={styles.progressLabel}>Gruppen gelernt</Text>
           <Text style={styles.progressValue}>
@@ -156,9 +161,11 @@ export default function LettersPlusScreen() {
         ))}
       </View>
 
-      <View style={styles.summaryCard}>
+      <View style={[styles.summaryCard, compactLayout && styles.summaryCardCompact]}>
         <Text style={styles.summaryTitle}>Aktuell gewählt</Text>
-        <Text style={styles.summarySymbol}>{selectedEntry.symbol}</Text>
+        <Text style={[styles.summarySymbol, compactLayout && styles.summarySymbolCompact]}>
+          {selectedEntry.symbol}
+        </Text>
         <Text style={styles.summaryName}>{selectedEntry.name}</Text>
         <Text style={styles.summaryEffect}>{selectedEntry.effect}</Text>
         <Text style={styles.summaryExample}>{selectedEntry.exampleArabic}</Text>
@@ -203,7 +210,7 @@ export default function LettersPlusScreen() {
           ))}
       </View>
 
-      <View style={styles.tipCard}>
+      <View style={[styles.tipCard, compactLayout && styles.tipCardCompact]}>
         <Text style={styles.tipTitle}>Lesehilfe</Text>
         <Text style={styles.tipText}>
           Ein Vokalzeichen macht aus einem harten Konsonanten ein lesbares kleines Wortstück.
@@ -214,12 +221,10 @@ export default function LettersPlusScreen() {
       <LearningCard>
         <Text style={styles.quizTitle}>Mini-Übung: {activeGroup}</Text>
         <Text style={styles.quizPrompt}>{currentQuestion.prompt}</Text>
-        <View style={styles.quizSymbolCard}>
+        <View style={[styles.quizSymbolCard, compactLayout && styles.quizSymbolCardCompact]}>
           <Text style={styles.quizSymbolLabel}>Zeichen</Text>
-          <Text style={styles.quizSymbol}>
-            {currentQuestion.answerKind === "name"
-              ? currentQuestionEntry.symbol
-              : currentQuestionEntry.symbol}
+          <Text style={[styles.quizSymbol, compactLayout && styles.quizSymbolCompact]}>
+            {currentQuestionEntry.symbol}
           </Text>
         </View>
         <View style={styles.quizOptions}>
@@ -331,6 +336,10 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md,
     backgroundColor: theme.colors.background
   },
+  containerCompact: {
+    paddingTop: 10,
+    gap: 10
+  },
   introCard: {
     backgroundColor: theme.colors.accentSoft,
     borderWidth: 1,
@@ -338,6 +347,10 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     padding: theme.spacing.md,
     gap: 8
+  },
+  introCardCompact: {
+    padding: 12,
+    gap: 6
   },
   introTag: {
     fontSize: 12,
@@ -394,6 +407,10 @@ const styles = StyleSheet.create({
     gap: 6,
     alignItems: "center"
   },
+  summaryCardCompact: {
+    padding: 12,
+    gap: 5
+  },
   summaryTitle: {
     fontSize: 13,
     fontWeight: "700",
@@ -405,6 +422,9 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: theme.colors.text,
     fontWeight: "700"
+  },
+  summarySymbolCompact: {
+    fontSize: 38
   },
   summaryName: {
     fontSize: 18,
@@ -443,6 +463,10 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.xl,
     padding: theme.spacing.md,
     gap: 8
+  },
+  progressCardCompact: {
+    padding: 12,
+    gap: 6
   },
   progressRow: {
     flexDirection: "row",
@@ -559,6 +583,10 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
     gap: 6
   },
+  tipCardCompact: {
+    padding: 12,
+    gap: 5
+  },
   tipTitle: {
     fontSize: 15,
     fontWeight: "700",
@@ -591,6 +619,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 3
   },
+  quizSymbolCardCompact: {
+    paddingVertical: 10,
+    paddingHorizontal: 12
+  },
   quizSymbolLabel: {
     fontSize: 12,
     color: theme.colors.mutedText,
@@ -602,6 +634,9 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: theme.colors.accent,
     fontWeight: "700"
+  },
+  quizSymbolCompact: {
+    fontSize: 42
   },
   quizOptions: {
     gap: 8
