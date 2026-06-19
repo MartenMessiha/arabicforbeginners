@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { DropdownSection } from "../components/DropdownSection";
 import { PrimaryButton } from "../components/PrimaryButton";
+import { diacritics } from "../data/diacritics";
 import { letters } from "../data/letters";
 import { theme } from "../theme/theme";
 import { ProgressBar } from "../components/ProgressBar";
@@ -14,18 +15,9 @@ export default function HomeScreen() {
   const progress = useLearningProgress();
   const learningPath = useLearningPath();
   const displayTotals = useMemo(() => {
-    const letterDeckTotal = letters.reduce((total, letter) => {
-      const forms = [
-        letter.forms.isolated,
-        letter.forms.initial,
-        letter.forms.medial,
-        letter.forms.final
-      ];
-      return total + forms.filter(Boolean).length;
-    }, 0);
-
     return {
-      letters: letterDeckTotal,
+      letters: letters.length,
+      diacritics: diacritics.length,
       words: 100,
       sentences: 100,
       paragraphs: 100,
@@ -111,7 +103,11 @@ export default function HomeScreen() {
         <View style={styles.quickStats}>
           <View style={styles.statCard}>
             <Text style={styles.statValue}>{displayTotals.letters}</Text>
-            <Text style={styles.statLabel}>Formen</Text>
+            <Text style={styles.statLabel}>Buchstaben</Text>
+          </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statValue}>{displayTotals.diacritics}</Text>
+            <Text style={styles.statLabel}>Vokalzeichen</Text>
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statValue}>{displayTotals.words}</Text>
@@ -142,6 +138,23 @@ export default function HomeScreen() {
             Wiederhole ruhig Anfang, Mitte und Ende, bis die Formen sitzen.
           </Text>
           <PrimaryButton label="Buchstaben starten" onPress={() => router.push("/letters")} />
+        </DropdownSection>
+
+        <DropdownSection
+          title="Stufe 1+: Vokalzeichen"
+          subtitle="Die Zeichen über und unter den Buchstaben."
+          icon="+"
+          badge={`${displayTotals.diacritics}`}
+          expanded={openSection === "letters-plus"}
+          onPress={() =>
+            setOpenSection((current) => (current === "letters-plus" ? "" : "letters-plus"))
+          }
+        >
+          <Text style={styles.dropdownText}>
+            Fatha, Kasra, Damma, Sukun, Shadda und die typischen Endungen machen das Lesen
+            genauer.
+          </Text>
+          <PrimaryButton label="Vokalzeichen starten" onPress={() => router.push("/letters-plus")} />
         </DropdownSection>
 
         <DropdownSection
@@ -368,7 +381,7 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   statCard: {
-    minWidth: "47%",
+    minWidth: "31%",
     flexGrow: 1,
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.lg,

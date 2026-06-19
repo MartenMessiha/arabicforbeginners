@@ -42,3 +42,14 @@ export type VerseEntry = {
   german: string;
   category: "Bibel" | "Agpeya" | "Basilius" | "Gregorios" | "Kyrillos";
 };
+
+export type DiacriticEntry = {
+  id: string;
+  symbol: string;
+  name: string;
+  group: "Grundzeichen" | "Verdopplung" | "Endungen";
+  effect: string;
+  exampleArabic: string;
+  exampleFranko: string;
+  meaningGerman: string;
+};

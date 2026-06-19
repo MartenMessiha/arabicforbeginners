@@ -1,10 +1,11 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "expo-router";
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ProgressBar } from "../components/ProgressBar";
 import { ScreenHeader } from "../components/ScreenHeader";
+import { ZoomableImage } from "../components/ZoomableImage";
 import { letters, type Letter, type LetterMode } from "../data/letters";
 import { decreaseMistakeCount, increaseMistakeCount } from "../utils/learningCycle";
 import { shuffle } from "../utils/shuffle";
@@ -401,13 +402,12 @@ export default function LetterLevelScreen() {
           <Text style={styles.overviewLabel}>Alphabet auf einen Blick</Text>
           <Text style={styles.overviewBadge}>1. Stufe</Text>
         </View>
-        <Image
+        <ZoomableImage
           source={require("../assets/alphabet-overview.png")}
-          style={styles.overviewImage}
-          resizeMode="contain"
           accessibilityLabel="Alphabet-Übersicht mit Name, Umschrift und Formen"
+          previewHeight={205}
+          caption="Öffnen und vergrößern."
         />
-        <Text style={styles.overviewText}>Kurz zum Nachschlagen.</Text>
       </View>
 
       <View style={styles.modeRow}>
@@ -621,14 +621,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     color: theme.colors.mutedText
-  },
-  overviewImage: {
-    width: "100%",
-    height: 205,
-    borderRadius: theme.radius.lg,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.backgroundAlt
   },
   supportCard: {
     backgroundColor: theme.colors.surface,

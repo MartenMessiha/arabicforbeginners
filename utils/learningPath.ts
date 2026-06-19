@@ -2,7 +2,7 @@ import { useEffect, useSyncExternalStore } from "react";
 
 export type LearningPath = {
   label: string;
-  route: "/" | "/letters" | "/words" | "/sentences" | "/paragraphs" | "/verses";
+  route: "/" | "/letters" | "/letters-plus" | "/words" | "/sentences" | "/paragraphs" | "/verses";
 };
 
 let currentPath: LearningPath = {
