@@ -398,18 +398,16 @@ export default function LetterLevelScreen() {
 
       <View style={styles.overviewCard}>
         <View style={styles.overviewRow}>
-          <Text style={styles.overviewLabel}>Alphabet-Übersicht</Text>
-          <Text style={styles.overviewBadge}>Zum Nachschlagen</Text>
+          <Text style={styles.overviewLabel}>Alphabet auf einen Blick</Text>
+          <Text style={styles.overviewBadge}>1. Stufe</Text>
         </View>
-        <Text style={styles.overviewText}>
-          Ruhige Übersicht für Name, Umschrift, Formen und Links-Verbindung.
-        </Text>
         <Image
           source={require("../assets/alphabet-overview.png")}
           style={styles.overviewImage}
           resizeMode="contain"
           accessibilityLabel="Alphabet-Übersicht mit Name, Umschrift und Formen"
         />
+        <Text style={styles.overviewText}>Kurz zum Nachschlagen.</Text>
       </View>
 
       <View style={styles.modeRow}>
@@ -596,8 +594,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.sm,
-    gap: 8
+    padding: 8,
+    gap: 5
   },
   overviewRow: {
     flexDirection: "row",
@@ -606,27 +604,27 @@ const styles = StyleSheet.create({
     gap: 10
   },
   overviewLabel: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "700",
     color: theme.colors.text
   },
   overviewBadge: {
-    fontSize: 12,
+    fontSize: 11,
     color: theme.colors.accent,
     fontWeight: "700",
     backgroundColor: theme.colors.accentSoft,
     borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 5
+    paddingHorizontal: 9,
+    paddingVertical: 4
   },
   overviewText: {
     fontSize: 12,
-    lineHeight: 17,
+    lineHeight: 16,
     color: theme.colors.mutedText
   },
   overviewImage: {
     width: "100%",
-    height: 280,
+    height: 205,
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
