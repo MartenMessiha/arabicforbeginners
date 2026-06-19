@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
   View
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { theme } from "../theme/theme";
 
 type Props = {
@@ -116,7 +117,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
       </Pressable>
 
       <Modal visible={visible} animationType="fade" onRequestClose={close}>
-        <View style={styles.modal}>
+        <SafeAreaView style={styles.modalSafe} edges={["top", "left", "right"]}>
           <View style={styles.modalTopRow}>
             <View>
               <Text style={styles.modalTitle}>Übersicht öffnen</Text>
@@ -172,7 +173,7 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
               />
             </Pressable>
           </ScrollView>
-        </View>
+        </SafeAreaView>
       </Modal>
     </>
   );
@@ -203,11 +204,11 @@ const styles = StyleSheet.create({
     color: theme.colors.mutedText,
     lineHeight: 16
   },
-  modal: {
+  modalSafe: {
     flex: 1,
     backgroundColor: "#111418",
     paddingHorizontal: theme.spacing.md,
-    paddingTop: 16,
+    paddingTop: 10,
     paddingBottom: theme.spacing.md
   },
   modalTopRow: {

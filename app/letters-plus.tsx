@@ -33,7 +33,7 @@ function buildQuizQuestions(entries: typeof diacritics) {
       return {
         id: entry.id,
         entryId: entry.id,
-        prompt: `Wie heißt das Zeichen ${entry.symbol}?`,
+        prompt: "Wie heißt dieses Zeichen?",
         answer: entry.name,
         answerKind: "name" as const,
         options: shuffle([entry.name, ...distractors])
@@ -214,11 +214,12 @@ export default function LettersPlusScreen() {
       <LearningCard>
         <Text style={styles.quizTitle}>Mini-Übung: {activeGroup}</Text>
         <Text style={styles.quizPrompt}>{currentQuestion.prompt}</Text>
-        <View style={styles.quizSymbolWrap}>
+        <View style={styles.quizSymbolCard}>
+          <Text style={styles.quizSymbolLabel}>Zeichen</Text>
           <Text style={styles.quizSymbol}>
             {currentQuestion.answerKind === "name"
               ? currentQuestionEntry.symbol
-              : currentQuestionEntry.name}
+              : currentQuestionEntry.symbol}
           </Text>
         </View>
         <View style={styles.quizOptions}>
@@ -579,13 +580,26 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     fontWeight: "600"
   },
-  quizSymbolWrap: {
+  quizSymbolCard: {
+    borderRadius: theme.radius.lg,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.backgroundAlt,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 4
+    gap: 3
+  },
+  quizSymbolLabel: {
+    fontSize: 12,
+    color: theme.colors.mutedText,
+    fontWeight: "700",
+    textTransform: "uppercase",
+    letterSpacing: 0.7
   },
   quizSymbol: {
-    fontSize: 34,
+    fontSize: 48,
     color: theme.colors.accent,
     fontWeight: "700"
   },

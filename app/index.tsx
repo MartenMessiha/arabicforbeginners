@@ -230,13 +230,13 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 10,
+    paddingTop: 8,
     paddingBottom: theme.spacing.xl,
     gap: theme.spacing.sm,
     backgroundColor: theme.colors.background
   },
   hero: {
-    gap: 8
+    gap: 10
   },
   topRow: {
     flexDirection: "row",
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.accent,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 12,
+    padding: 14,
     gap: 7,
     marginTop: 2
   },
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 11,
+    padding: 12,
     gap: 6,
     marginTop: 2
   },
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 11,
+    padding: 14,
     gap: 8,
     marginTop: 2
   },
@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 8,
+    paddingVertical: 7,
     paddingHorizontal: 10,
     gap: 1
   },
