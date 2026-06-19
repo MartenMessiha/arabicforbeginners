@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ProgressBar } from "../components/ProgressBar";
@@ -396,6 +396,22 @@ export default function LetterLevelScreen() {
         </Text>
       </View>
 
+      <View style={styles.overviewCard}>
+        <View style={styles.overviewRow}>
+          <Text style={styles.overviewLabel}>Alphabet-Übersicht</Text>
+          <Text style={styles.overviewBadge}>Zum Nachschlagen</Text>
+        </View>
+        <Text style={styles.overviewText}>
+          Nutze die Tabelle als ruhige Übersicht für Name, Umschrift und die vier Formen.
+        </Text>
+        <Image
+          source={require("../assets/alphabet-overview.png")}
+          style={styles.overviewImage}
+          resizeMode="contain"
+          accessibilityLabel="Alphabet-Übersicht mit Name, Umschrift und Formen"
+        />
+      </View>
+
       <View style={styles.modeRow}>
         {createModeList().map((item) => (
           <Pressable
@@ -574,6 +590,47 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 19,
     color: theme.colors.mutedText
+  },
+  overviewCard: {
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radius.xl,
+    padding: theme.spacing.md,
+    gap: 10
+  },
+  overviewRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10
+  },
+  overviewLabel: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: theme.colors.text
+  },
+  overviewBadge: {
+    fontSize: 12,
+    color: theme.colors.accent,
+    fontWeight: "700",
+    backgroundColor: theme.colors.accentSoft,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 5
+  },
+  overviewText: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: theme.colors.mutedText
+  },
+  overviewImage: {
+    width: "100%",
+    aspectRatio: 546 / 1024,
+    borderRadius: theme.radius.lg,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.backgroundAlt
   },
   supportCard: {
     backgroundColor: theme.colors.surface,

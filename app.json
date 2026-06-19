@@ -2,6 +2,7 @@
   "expo": {
     "name": "arabicforbeginners",
     "slug": "arabicforbeginner",
+    "icon": "./assets/app-icon.png",
     "scheme": "arabicforbeginners",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -11,7 +12,8 @@
     "android": {
       "package": "com.martenmessiha.arabicforbeginner",
       "adaptiveIcon": {
-        "backgroundColor": "#F5F1E8"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F7F3EB"
       }
     },
     "ios": {
@@ -30,6 +32,9 @@
       "eas": {
         "projectId": "96b28044-f875-48dd-8b02-2056dea2b740"
       }
+    },
+    "web": {
+      "favicon": "./assets/app-icon.png"
     },
     "owner": "martenmessiha"
   }
