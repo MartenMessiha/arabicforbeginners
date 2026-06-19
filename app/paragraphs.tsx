@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ProgressBar } from "../components/ProgressBar";
@@ -33,7 +33,7 @@ export default function ParagraphLevelScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} stickyHeaderIndices={[0]}>
       <ScreenHeader
         title="Stufe 4: Absätze lesen"
         subtitle="Lies den Absatz ruhig. Tippe für Franko und Bedeutung."
@@ -91,44 +91,45 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 12,
+    paddingTop: 6,
     paddingBottom: theme.spacing.xl,
-    gap: 12,
+    gap: 8,
     backgroundColor: theme.colors.background
   },
   arabicParagraph: {
-    fontSize: 25,
-    lineHeight: 40,
+    fontSize: Platform.select({ ios: 25, android: 24, default: 25 }),
+    lineHeight: Platform.select({ ios: 40, android: 38, default: 40 }),
     color: theme.colors.text,
     textAlign: "right",
     writingDirection: "rtl",
     marginBottom: theme.spacing.md
   },
   franko: {
-    fontSize: 18,
-    lineHeight: 26,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: Platform.select({ ios: 26, android: 24, default: 26 }),
     color: theme.colors.text,
     marginTop: 12
   },
   meaning: {
-    fontSize: 17,
-    lineHeight: 25,
+    fontSize: Platform.select({ ios: 17, android: 16, default: 17 }),
+    lineHeight: Platform.select({ ios: 25, android: 23, default: 25 }),
     color: theme.colors.mutedText,
     marginTop: 10
   },
   actions: {
-    gap: 10
+    gap: 8
   },
   statusCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 9,
-    paddingHorizontal: 12
+    paddingVertical: 8,
+    paddingHorizontal: 11
   },
   statusText: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: 18,
     color: theme.colors.accent,
     fontWeight: "600"
   },
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   progressLabel: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
     color: theme.colors.mutedText
   }
 });

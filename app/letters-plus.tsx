@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { ScreenHeader } from "../components/ScreenHeader";
@@ -105,6 +105,7 @@ export default function LettersPlusScreen() {
   return (
     <ScrollView
       contentContainerStyle={[styles.container, compactLayout && styles.containerCompact]}
+      stickyHeaderIndices={[0]}
       bounces={false}
     >
       <ScreenHeader
@@ -226,11 +227,24 @@ export default function LettersPlusScreen() {
           {currentQuestion.prompt}
         </Text>
         <View style={[styles.quizSymbolCard, compactLayout && styles.quizSymbolCardCompact]}>
-          <Text style={styles.quizSymbolLabel}>Zeichen</Text>
-          <Text style={[styles.quizSymbol, compactLayout && styles.quizSymbolCompact]}>
-            {currentQuestionEntry.symbol}
-          </Text>
-          <Text style={styles.quizSymbolExample}>{currentQuestionEntry.exampleArabic}</Text>
+          <View style={styles.quizSymbolHeader}>
+            <Text style={styles.quizSymbolLabel}>Zeichen</Text>
+            <Text style={styles.quizSymbolHint}>{currentQuestionEntry.effect}</Text>
+          </View>
+          <View style={styles.quizSymbolPreview}>
+            <Text style={[styles.quizSymbol, compactLayout && styles.quizSymbolCompact]}>
+              {currentQuestionEntry.exampleArabic}
+            </Text>
+          </View>
+          <View style={styles.quizSymbolMetaRow}>
+            <View style={styles.quizSymbolMetaChip}>
+              <Text style={styles.quizSymbolMetaChipText}>{currentQuestionEntry.name}</Text>
+            </View>
+            <View style={styles.quizSymbolMetaChip}>
+              <Text style={styles.quizSymbolMetaChipText}>Beispiel</Text>
+            </View>
+          </View>
+          <Text style={styles.quizSymbolExample}>{currentQuestionEntry.symbol}</Text>
         </View>
         <View style={styles.quizOptions}>
           {currentQuestion.options.map((option) => {
@@ -336,21 +350,21 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 16,
+    paddingTop: 4,
     paddingBottom: theme.spacing.xl,
-    gap: theme.spacing.md,
+    gap: 10,
     backgroundColor: theme.colors.background
   },
   containerCompact: {
-    paddingTop: 8,
-    gap: 8
+    paddingTop: 4,
+    gap: 6
   },
   introCard: {
     backgroundColor: theme.colors.accentSoft,
     borderWidth: 1,
     borderColor: theme.colors.accent,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
+    padding: 14,
     gap: 8
   },
   introCardCompact: {
@@ -404,7 +418,7 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   summaryCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
@@ -465,11 +479,11 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md
   },
   progressCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
+    padding: 14,
     gap: 8
   },
   progressCardCompact: {
@@ -528,32 +542,33 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   groupCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
-    gap: 10
+    padding: 14,
+    gap: 8
   },
   groupTitle: {
-    fontSize: 16,
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
+    lineHeight: 20,
     fontWeight: "700",
     color: theme.colors.text
   },
   symbolGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10
+    gap: 8
   },
   symbolCard: {
     width: "48%",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    backgroundColor: theme.colors.backgroundAlt,
-    padding: 12,
+    backgroundColor: "#FBF8F1",
+    padding: 10,
     gap: 4,
-    minHeight: 114
+    minHeight: 108
   },
   symbolCardActive: {
     borderColor: theme.colors.accent,
@@ -563,7 +578,8 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.99 }]
   },
   symbol: {
-    fontSize: 34,
+    fontSize: Platform.select({ ios: 34, android: 32, default: 34 }),
+    lineHeight: Platform.select({ ios: 38, android: 36, default: 38 }),
     color: theme.colors.text,
     textAlign: "center"
   },
@@ -571,7 +587,8 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   symbolName: {
-    fontSize: 13,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: 16,
     fontWeight: "700",
     color: theme.colors.text
   },
@@ -579,16 +596,16 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   symbolEffect: {
-    fontSize: 11,
-    lineHeight: 16,
+    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
+    lineHeight: Platform.select({ ios: 16, android: 15, default: 16 }),
     color: theme.colors.mutedText
   },
   tipCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
+    padding: 14,
     gap: 6
   },
   tipCardCompact: {
@@ -596,81 +613,120 @@ const styles = StyleSheet.create({
     gap: 5
   },
   tipTitle: {
-    fontSize: 15,
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   tipText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   },
   quizTitle: {
-    fontSize: 15,
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   quizPrompt: {
-    fontSize: 16,
-    lineHeight: 22,
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
+    lineHeight: Platform.select({ ios: 22, android: 20, default: 22 }),
     color: theme.colors.text,
     fontWeight: "600"
   },
   quizPromptCompact: {
-    fontSize: 15,
-    lineHeight: 20
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
+    lineHeight: Platform.select({ ios: 20, android: 18, default: 20 })
   },
   quizSymbolCard: {
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    backgroundColor: theme.colors.backgroundAlt,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
+    backgroundColor: "#FBF8F1",
+    paddingVertical: 10,
+    paddingHorizontal: 12,
     alignItems: "center",
     justifyContent: "center",
-    gap: 3
+    gap: 6
   },
   quizSymbolCardCompact: {
     paddingVertical: 9,
     paddingHorizontal: 12
   },
+  quizSymbolHeader: {
+    alignItems: "center",
+    gap: 2
+  },
   quizSymbolLabel: {
-    fontSize: 12,
+    fontSize: Platform.select({ ios: 12, android: 11, default: 12 }),
     color: theme.colors.mutedText,
     fontWeight: "700",
     textTransform: "uppercase",
     letterSpacing: 0.7
   },
+  quizSymbolHint: {
+    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
+    lineHeight: Platform.select({ ios: 16, android: 15, default: 16 }),
+    color: theme.colors.accent,
+    textAlign: "center",
+    fontWeight: "600"
+  },
+  quizSymbolPreview: {
+    width: "100%",
+    borderRadius: theme.radius.lg,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    alignItems: "center",
+    justifyContent: "center"
+  },
   quizSymbol: {
-    fontSize: 70,
-    lineHeight: 74,
+    fontSize: Platform.select({ ios: 28, android: 26, default: 28 }),
+    lineHeight: Platform.select({ ios: 34, android: 32, default: 34 }),
     color: theme.colors.accent,
     fontWeight: "700"
   },
   quizSymbolCompact: {
-    fontSize: 58,
-    lineHeight: 60
+    fontSize: Platform.select({ ios: 24, android: 22, default: 24 }),
+    lineHeight: Platform.select({ ios: 30, android: 28, default: 30 })
+  },
+  quizSymbolMetaRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 6
+  },
+  quizSymbolMetaChip: {
+    backgroundColor: theme.colors.accentSoft,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 5
+  },
+  quizSymbolMetaChipText: {
+    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
+    color: theme.colors.accent,
+    fontWeight: "700"
   },
   quizSymbolExample: {
-    fontSize: 22,
-    lineHeight: 28,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: Platform.select({ ios: 24, android: 22, default: 24 }),
     color: theme.colors.text,
     writingDirection: "rtl",
     textAlign: "center",
-    marginTop: 2,
+    marginTop: 0,
     fontWeight: "700"
   },
   quizOptions: {
-    gap: 8
+    gap: 7
   },
   quizOption: {
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    backgroundColor: theme.colors.backgroundAlt,
+    backgroundColor: "#FCFAF5",
     paddingHorizontal: 12,
-    paddingVertical: 10
+    paddingVertical: 9
   },
   quizOptionPressed: {
     opacity: 0.92,
@@ -685,8 +741,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FDECEC"
   },
   quizOptionText: {
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 18, android: 16, default: 18 }),
     color: theme.colors.text,
     fontWeight: "600"
   },
@@ -697,8 +753,8 @@ const styles = StyleSheet.create({
     color: "#B24B4B"
   },
   quizFeedback: {
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 18, android: 16, default: 18 }),
     fontWeight: "700"
   },
   quizFeedbackCorrect: {
@@ -711,26 +767,26 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm
   },
   finishCard: {
-    backgroundColor: theme.colors.accentSoft,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
-    borderColor: theme.colors.accent,
+    borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
+    padding: 14,
     gap: 6
   },
   finishTitle: {
-    fontSize: 16,
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   finishText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   },
   finishPill: {
     alignSelf: "flex-start",
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.accentSoft,
     borderRadius: 999,
     borderWidth: 1,
     borderColor: theme.colors.accent,

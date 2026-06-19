@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DropdownSection } from "../components/DropdownSection";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { diacritics } from "../data/diacritics";
@@ -14,6 +15,7 @@ export default function HomeScreen() {
   const [openSection, setOpenSection] = useState<string>("letters");
   const progress = useLearningProgress();
   const learningPath = useLearningPath();
+  const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
   const compactLayout = height < 760;
   const displayTotals = useMemo(() => {
@@ -30,7 +32,11 @@ export default function HomeScreen() {
 
   return (
     <ScrollView
-      contentContainerStyle={[styles.container, compactLayout && styles.containerCompact]}
+      contentContainerStyle={[
+        styles.container,
+        compactLayout && styles.containerCompact,
+        { paddingTop: Math.max(insets.top, Platform.select({ ios: 12, android: 10, default: 12 })) }
+      ]}
       bounces={false}
     >
       <View style={styles.hero}>
@@ -54,13 +60,6 @@ export default function HomeScreen() {
             <Text style={styles.homeBadgeText}>Lernpfad</Text>
           </View>
         </View>
-
-        <Text style={[styles.title, compactLayout && styles.titleCompact]}>
-          Koptisch-Orthodox Arabisch Lesen
-        </Text>
-        <Text style={[styles.subtitle, compactLayout && styles.subtitleCompact]}>
-          Lerne arabische Schrift mit kirchlichen Wörtern, Sätzen und Texten Schritt für Schritt.
-        </Text>
 
         <View style={[styles.focusCard, compactLayout && styles.focusCardCompact]}>
           <View style={styles.focusHeader}>
@@ -108,36 +107,6 @@ export default function HomeScreen() {
           </Text>
         </View>
 
-        <View style={[styles.overviewCard, compactLayout && styles.overviewCardCompact]}>
-          <View style={styles.overviewHeader}>
-            <View>
-              <Text style={styles.overviewTitle}>Lernumfang</Text>
-              <Text style={styles.overviewText}>Alles ist lokal, übersichtlich und in Ruhe aufgebaut.</Text>
-            </View>
-          </View>
-          <View style={styles.quickStats}>
-            {[
-              { value: displayTotals.letters, label: "Buchstaben" },
-              { value: displayTotals.diacritics, label: "Vokalzeichen" },
-              { value: displayTotals.words, label: "Wörter" },
-              { value: displayTotals.sentences, label: "Sätze" },
-              { value: displayTotals.paragraphs, label: "Absätze" },
-              { value: displayTotals.writing, label: "Schreiben" },
-              { value: displayTotals.verses, label: "Verse" }
-            ]
-              .slice(0, compactLayout ? 4 : 6)
-              .map((item) => (
-                <View key={item.label} style={[styles.statCard, compactLayout && styles.statCardCompact]}>
-                  <Text style={[styles.statValue, compactLayout && styles.statValueCompact]}>
-                    {item.value}
-                  </Text>
-                  <Text style={[styles.statLabel, compactLayout && styles.statLabelCompact]}>
-                    {item.label}
-                  </Text>
-                </View>
-              ))}
-          </View>
-        </View>
       </View>
 
       <View style={styles.dropdownList}>
@@ -252,23 +221,23 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 8,
+    paddingTop: 4,
     paddingBottom: theme.spacing.xl,
-    gap: theme.spacing.sm,
+    gap: 6,
     backgroundColor: theme.colors.background
   },
   containerCompact: {
-    paddingTop: 6,
-    gap: 8
+    paddingTop: 4,
+    gap: 5
   },
   hero: {
-    gap: 8
+    gap: 4
   },
   topRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 2
+    marginBottom: 0
   },
   backButton: {
     alignSelf: "flex-start",
@@ -300,41 +269,20 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     letterSpacing: 0.3
   },
-  title: {
-    color: theme.colors.text,
-    fontSize: 26,
-    lineHeight: 32,
-    fontFamily: theme.fonts.display,
-    fontWeight: "700"
-  },
-  titleCompact: {
-    fontSize: 23,
-    lineHeight: 28
-  },
-  subtitle: {
-    color: theme.colors.mutedText,
-    fontSize: 15,
-    lineHeight: 21
-  },
-  subtitleCompact: {
-    fontSize: 13,
-    lineHeight: 19
-  },
   continueCard: {
     display: "none"
   },
   focusCard: {
-    backgroundColor: "#FBF8F1",
-    borderColor: theme.colors.accent,
+    backgroundColor: theme.colors.surface,
+    borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 7,
-    marginTop: 2,
-    borderLeftWidth: 4
+    padding: 12,
+    gap: 6,
+    marginTop: 0
   },
   focusCardCompact: {
-    padding: 10,
+    padding: 9,
     gap: 5
   },
   focusHeader: {
@@ -350,48 +298,49 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   focusTitle: {
-    fontSize: 16,
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.text,
     fontWeight: "700",
-    marginTop: 2
+    marginTop: 0
   },
   focusBadge: {
-    backgroundColor: "#FCFAF5",
+    backgroundColor: theme.colors.accentSoft,
     borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6
+    paddingHorizontal: 8,
+    paddingVertical: 4
   },
   focusBadgeText: {
-    color: theme.colors.text,
-    fontSize: 12,
+    color: theme.colors.accent,
+    fontSize: 11,
     fontWeight: "700"
   },
   focusText: {
-    fontSize: 12,
-    lineHeight: 17,
+    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
+    lineHeight: Platform.select({ ios: 16, android: 14, default: 16 }),
     color: theme.colors.mutedText
   },
   focusActions: {
-    flexDirection: "row",
-    gap: 8
+    flexDirection: "column",
+    gap: 6
   },
   focusPrimaryButton: {
-    flex: 1
+    width: "100%"
   },
   focusSecondaryButton: {
-    flex: 1
+    width: "100%"
   },
   goalCard: {
     backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 12,
-    gap: 6,
+    padding: 11,
+    gap: 5,
     marginTop: 2
   },
   goalCardCompact: {
-    padding: 10
+    padding: 9
   },
   goalRow: {
     flexDirection: "row",
@@ -399,12 +348,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   goalLabel: {
-    fontSize: 13,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   goalValue: {
-    fontSize: 19,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: 22,
     color: theme.colors.accent,
     fontWeight: "700"
   },
@@ -420,80 +370,17 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   goalHint: {
-    fontSize: 11,
-    lineHeight: 16,
+    fontSize: Platform.select({ ios: 11, android: 10, default: 11 }),
+    lineHeight: Platform.select({ ios: 15, android: 14, default: 15 }),
     color: theme.colors.mutedText
-  },
-  quickStats: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    gap: 6,
-    marginTop: 2
-  },
-  overviewCard: {
-    backgroundColor: "#FBF8F1",
-    borderColor: theme.colors.border,
-    borderWidth: 1,
-    borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 8,
-    marginTop: 2
-  },
-  overviewCardCompact: {
-    padding: 10,
-    gap: 6
-  },
-  overviewHeader: {
-    gap: 2
-  },
-  overviewTitle: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: theme.colors.text
-  },
-  overviewText: {
-    fontSize: 12,
-    lineHeight: 17,
-    color: theme.colors.mutedText
-  },
-  statCard: {
-    flexBasis: "31%",
-    flexGrow: 1,
-    backgroundColor: "#FCFAF5",
-    borderRadius: theme.radius.lg,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    paddingVertical: 7,
-    paddingHorizontal: 10,
-    gap: 1
-  },
-  statCardCompact: {
-    flexBasis: "48%",
-    paddingVertical: 5
-  },
-  statValue: {
-    fontSize: 19,
-    fontWeight: "700",
-    color: theme.colors.text
-  },
-  statValueCompact: {
-    fontSize: 16
-  },
-  statLabel: {
-    fontSize: 12,
-    color: theme.colors.mutedText
-  },
-  statLabelCompact: {
-    fontSize: 11
   },
   dropdownList: {
-    gap: 6,
+    gap: 5,
     marginTop: 2
   },
   dropdownText: {
-    fontSize: 14,
-    lineHeight: 21,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   }
 });

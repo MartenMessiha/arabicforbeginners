@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { theme } from "../theme/theme";
 
 type Props = {
@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundAlt
   },
   header: {
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    gap: 6
+    paddingHorizontal: 13,
+    paddingVertical: Platform.select({ ios: 10, android: 9, default: 10 }),
+    gap: 5
   },
   pressed: {
     backgroundColor: theme.colors.backgroundAlt
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   titleGroup: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8
+    gap: 7
   },
   iconBadge: {
     width: 26,
@@ -105,13 +105,14 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   title: {
-    fontSize: 17,
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
+    lineHeight: Platform.select({ ios: 20, android: 18, default: 20 }),
     color: theme.colors.text,
     fontWeight: "700"
   },
   subtitle: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: Platform.select({ ios: 12, android: 11, default: 12 }),
+    lineHeight: Platform.select({ ios: 17, android: 16, default: 17 }),
     color: theme.colors.mutedText
   },
   metaRow: {
@@ -122,26 +123,26 @@ const styles = StyleSheet.create({
   badge: {
     backgroundColor: theme.colors.backgroundAlt,
     borderRadius: 999,
-    paddingHorizontal: 9,
-    paddingVertical: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
     borderWidth: 1,
     borderColor: theme.colors.border
   },
   badgeText: {
     color: theme.colors.mutedText,
-    fontSize: 11,
+    fontSize: Platform.select({ ios: 10, android: 9, default: 10 }),
     fontWeight: "700"
   },
   chevron: {
-    fontSize: 20,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
     color: theme.colors.accent,
     fontWeight: "700"
   },
   body: {
-    paddingHorizontal: 14,
+    paddingHorizontal: 13,
     paddingTop: 2,
-    paddingBottom: 12,
-    gap: 10,
+    paddingBottom: Platform.select({ ios: 10, android: 9, default: 10 }),
+    gap: 8,
     borderTopWidth: 1,
     borderTopColor: theme.colors.border
   }

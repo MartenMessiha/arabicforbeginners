@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 18
+    paddingHorizontal: 18,
+    paddingVertical: 8
   },
   solid: {
     backgroundColor: theme.colors.accent
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
   label: {
     color: theme.colors.onAccent,
     fontSize: 16,
+    lineHeight: 20,
     fontWeight: "700"
   },
   ghostLabel: {

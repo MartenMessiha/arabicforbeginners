@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, Pressable, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, Pressable, View } from "react-native";
 import { DropdownSection } from "../components/DropdownSection";
 import { ScreenHeader } from "../components/ScreenHeader";
 import { verses } from "../data/verses";
@@ -80,7 +80,7 @@ export default function VersesLevelScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container} bounces={false}>
+    <ScrollView contentContainerStyle={styles.container} bounces={false} stickyHeaderIndices={[0]}>
       <ScreenHeader
         title="Stufe 5: Verse lesen"
         subtitle="Verse aus Bibel, Agpeya und der koptisch-orthodoxen Messe."
@@ -153,18 +153,18 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 12,
+    paddingTop: 6,
     paddingBottom: theme.spacing.xl,
-    gap: 10,
+    gap: 8,
     backgroundColor: theme.colors.background
   },
   liturgicalCard: {
-    backgroundColor: theme.colors.accentSoft,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.accent,
-    padding: 16,
-    gap: 7
+    padding: 14,
+    gap: 6
   },
   liturgicalTag: {
     fontSize: 12,
@@ -174,20 +174,20 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   liturgicalTitle: {
-    fontSize: 20,
-    lineHeight: 26,
+    fontSize: Platform.select({ ios: 19, android: 18, default: 19 }),
+    lineHeight: Platform.select({ ios: 25, android: 23, default: 25 }),
     color: theme.colors.text,
     fontWeight: "700"
   },
   liturgicalText: {
-    fontSize: 14,
-    lineHeight: 21,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   },
   orderRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
+    gap: 7,
     marginTop: 2
   },
   orderPill: {
@@ -204,49 +204,50 @@ const styles = StyleSheet.create({
     color: theme.colors.text
   },
   introCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: 16,
-    gap: 7
+    padding: 14,
+    gap: 6
   },
   introTitle: {
-    fontSize: 18,
+    fontSize: Platform.select({ ios: 17, android: 16, default: 17 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   introText: {
-    fontSize: 15,
-    lineHeight: 23,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
     color: theme.colors.mutedText
   },
   statusCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 9,
-    paddingHorizontal: 12
+    paddingVertical: 8,
+    paddingHorizontal: 11
   },
   statusText: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: 18,
     color: theme.colors.accent,
     fontWeight: "600"
   },
   list: {
-    gap: 10
+    gap: 8
   },
   verseStack: {
-    gap: 10
+    gap: 8
   },
   verseCard: {
     backgroundColor: theme.colors.backgroundAlt,
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: theme.spacing.md,
-    gap: 8
+    padding: 12,
+    gap: 6
   },
   verseCardExpanded: {
     backgroundColor: theme.colors.accentSoft,
@@ -257,8 +258,8 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.995 }]
   },
   arabic: {
-    fontSize: 28,
-    lineHeight: 38,
+    fontSize: Platform.select({ ios: 28, android: 26, default: 28 }),
+    lineHeight: Platform.select({ ios: 38, android: 36, default: 38 }),
     textAlign: "right",
     writingDirection: "rtl",
     color: theme.colors.text
@@ -270,12 +271,14 @@ const styles = StyleSheet.create({
     gap: 8
   },
   category: {
-    fontSize: 13,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: 16,
     color: theme.colors.accent,
     fontWeight: "700"
   },
   toggleLabel: {
-    fontSize: 12,
+    fontSize: Platform.select({ ios: 12, android: 11, default: 12 }),
+    lineHeight: 16,
     color: theme.colors.mutedText,
     fontWeight: "600"
   },
@@ -283,17 +286,19 @@ const styles = StyleSheet.create({
     gap: 8
   },
   franko: {
-    fontSize: 18,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: 24,
     color: theme.colors.text,
     fontWeight: "700"
   },
   german: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
+    lineHeight: Platform.select({ ios: 24, android: 22, default: 24 }),
     color: theme.colors.mutedText
   },
   revealHint: {
-    fontSize: 13,
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    lineHeight: 18,
     color: theme.colors.mutedText
   }
 });

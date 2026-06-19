@@ -4,13 +4,14 @@ import {
   ImageSourcePropType,
   Modal,
   Pressable,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
   View
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "../theme/theme";
 
 type Props = {
@@ -31,10 +32,15 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
   const pendingTapPoint = useRef<{ x: number; y: number } | null>(null);
   const scrollRef = useRef<ScrollView>(null);
   const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
 
   const imageFrame = useMemo(() => {
-    const baseWidth = Math.min(width * 0.9, 760);
-    const baseHeight = Math.min(height * 0.72, 980);
+    const widthFactor = Platform.OS === "ios" ? 0.84 : 0.82;
+    const heightFactor = Platform.OS === "ios" ? 0.58 : 0.54;
+    const maxWidth = Platform.OS === "ios" ? 700 : 640;
+    const maxHeight = Platform.OS === "ios" ? 820 : 760;
+    const baseWidth = Math.min(width * widthFactor, maxWidth);
+    const baseHeight = Math.min(height * heightFactor, maxHeight);
     return {
       width: baseWidth * scale,
       height: baseHeight * scale
@@ -85,8 +91,8 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
     }
 
     const point = pendingTapPoint.current;
-    const viewportWidth = Math.min(width * 0.9, 760);
-    const viewportHeight = Math.min(height * 0.72, 980);
+    const viewportWidth = Math.min(width * (Platform.OS === "ios" ? 0.88 : 0.84), Platform.OS === "ios" ? 720 : 640);
+    const viewportHeight = Math.min(height * (Platform.OS === "ios" ? 0.64 : 0.58), Platform.OS === "ios" ? 860 : 760);
     const targetScale = scale;
 
     requestAnimationFrame(() => {
@@ -117,16 +123,24 @@ export function ZoomableImage({ source, accessibilityLabel, previewHeight = 220,
       </Pressable>
 
       <Modal visible={visible} animationType="fade" onRequestClose={close}>
-        <SafeAreaView style={styles.modalSafe} edges={["top", "left", "right"]}>
+        <SafeAreaView
+          style={[styles.modalSafe, { paddingTop: Math.max(insets.top, 24) }]}
+          edges={["top", "left", "right"]}
+        >
           <View style={styles.modalTopRow}>
-            <View>
+            <View style={styles.modalTitleBlock}>
               <Text style={styles.modalTitle}>Übersicht öffnen</Text>
               <Text style={styles.modalSubtitle}>
                 Mit Doppel-Tap direkt auf einen Punkt zoomen oder mit Pinch frei bewegen.
               </Text>
             </View>
-            <Pressable onPress={close} style={({ pressed }) => [styles.closeButton, pressed && styles.pressed]}>
-              <Text style={styles.closeButtonText}>Schließen</Text>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Schließen"
+              onPress={close}
+              style={({ pressed }) => [styles.closeButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.closeButtonText}>×</Text>
             </Pressable>
           </View>
 
@@ -208,46 +222,58 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#111418",
     paddingHorizontal: theme.spacing.md,
-    paddingTop: 18,
     paddingBottom: theme.spacing.md
   },
   modalTopRow: {
+    position: "relative",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
     gap: 12,
-    marginBottom: 8
+    marginBottom: 10
+  },
+  modalTitleBlock: {
+    flex: 1,
+    paddingRight: 48
   },
   modalTitle: {
-    fontSize: 20,
-    lineHeight: 26,
+    fontSize: 16,
+    lineHeight: 20,
     fontWeight: "700",
     color: "#F7F3EB"
   },
   modalSubtitle: {
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: 10,
+    lineHeight: 14,
     color: "#C7D0C7",
     marginTop: 2
   },
   closeButton: {
+    position: "absolute",
+    top: -2,
+    right: 0,
+    width: 44,
+    height: 44,
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#1B2125",
-    borderRadius: 999,
+    borderRadius: 22,
     borderWidth: 1,
     borderColor: "#2A3338",
-    paddingHorizontal: 12,
-    paddingVertical: 8
+    zIndex: 2
   },
   closeButtonText: {
-    fontSize: 13,
+    fontSize: 26,
+    lineHeight: 30,
     color: "#F7F3EB",
     fontWeight: "700"
   },
   zoomBar: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    marginBottom: 8
+    gap: 8,
+    marginBottom: 8,
+    flexWrap: "wrap"
   },
   zoomHint: {
     backgroundColor: "#1A2024",
@@ -256,7 +282,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
     paddingHorizontal: 12,
     paddingVertical: 9,
-    marginBottom: 10
+    marginBottom: 8
   },
   zoomHintText: {
     fontSize: 12,
@@ -302,6 +328,7 @@ const styles = StyleSheet.create({
   },
   viewer: {
     flex: 1,
+    marginTop: 2,
     borderRadius: theme.radius.xl,
     backgroundColor: "#0C1013",
     borderWidth: 1,
@@ -310,7 +337,8 @@ const styles = StyleSheet.create({
   viewerContent: {
     alignItems: "center",
     justifyContent: "center",
-    padding: theme.spacing.md,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
     flexGrow: 1
   },
   fullImage: {

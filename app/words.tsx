@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { FlipCard } from "../components/FlipCard";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
@@ -33,7 +33,7 @@ export default function WordLevelScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} stickyHeaderIndices={[0]}>
       <ScreenHeader
         title="Stufe 2: Wörter lesen"
         subtitle="Lies das Wort laut. Tippe für Franko und Bedeutung."
@@ -101,56 +101,60 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 12,
+    paddingTop: 6,
     paddingBottom: theme.spacing.xl,
-    gap: 12,
+    gap: 8,
     backgroundColor: theme.colors.background
   },
   arabicWord: {
-    fontSize: 38,
+    fontSize: Platform.select({ ios: 38, android: 36, default: 38 }),
+    lineHeight: Platform.select({ ios: 46, android: 44, default: 46 }),
     textAlign: "center",
     writingDirection: "rtl",
     color: theme.colors.text,
     marginBottom: theme.spacing.md,
-    lineHeight: 46
   },
   helperText: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
     color: theme.colors.mutedText,
-    lineHeight: 24
+    lineHeight: Platform.select({ ios: 24, android: 22, default: 24 })
   },
   franko: {
     textAlign: "center",
-    fontSize: 26,
+    fontSize: Platform.select({ ios: 26, android: 24, default: 26 }),
+    lineHeight: Platform.select({ ios: 32, android: 30, default: 32 }),
     color: theme.colors.text,
     fontWeight: "700",
     marginBottom: 8
   },
   meaning: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: Platform.select({ ios: 24, android: 22, default: 24 }),
     color: theme.colors.mutedText
   },
   category: {
     textAlign: "center",
     marginTop: 12,
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: 18,
     color: theme.colors.accent
   },
   actions: {
-    gap: 10
+    gap: 8
   },
   statusCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 9,
-    paddingHorizontal: 12
+    paddingVertical: 8,
+    paddingHorizontal: 11
   },
   statusText: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: 18,
     color: theme.colors.accent,
     fontWeight: "600"
   },
@@ -163,23 +167,25 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   progressLabel: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
     color: theme.colors.mutedText
   },
   footerCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.lg,
-    padding: theme.spacing.md,
-    gap: 6
+    padding: 12,
+    gap: 5
   },
   footerText: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: 18,
     color: theme.colors.mutedText
   },
   footerWord: {
-    fontSize: 22,
+    fontSize: Platform.select({ ios: 22, android: 20, default: 22 }),
+    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
     color: theme.colors.text,
     writingDirection: "rtl",
     textAlign: "right"

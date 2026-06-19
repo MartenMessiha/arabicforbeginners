@@ -358,7 +358,7 @@ export default function LetterLevelScreen() {
 
   if (finished) {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} stickyHeaderIndices={[0]}>
         <ScreenHeader
           title="Stufe 1: Buchstaben lernen"
           subtitle={`Erkenne jede Buchstabenform. ${questions.length} Karten im aktuellen Lauf.`}
@@ -378,7 +378,7 @@ export default function LetterLevelScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} stickyHeaderIndices={[0]}>
       <ScreenHeader
         title="Stufe 1: Buchstaben lernen"
         subtitle={`Erkenne die Buchstabenformen. ${questions.length} Karten im aktuellen Lauf.`}
@@ -514,23 +514,23 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 12,
+    paddingTop: 4,
     paddingBottom: theme.spacing.xl,
-    gap: 12,
+    gap: 10,
     backgroundColor: theme.colors.background
   },
   header: {
-    gap: 10
+    gap: 6
   },
   modeRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10
+    gap: 8
   },
   modeChip: {
     borderRadius: 999,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border
@@ -548,12 +548,12 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   deckCard: {
-    backgroundColor: theme.colors.accentSoft,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.accent,
     borderRadius: theme.radius.xl,
-    padding: 16,
-    gap: 8
+    padding: 14,
+    gap: 7
   },
   deckRow: {
     flexDirection: "row",
@@ -590,11 +590,11 @@ const styles = StyleSheet.create({
     color: theme.colors.mutedText
   },
   overviewCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 16,
+    padding: 14,
     gap: 6
   },
   overviewRow: {
@@ -623,11 +623,11 @@ const styles = StyleSheet.create({
     color: theme.colors.mutedText
   },
   supportCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 16,
+    padding: 14,
     gap: 8
   },
   supportTitle: {
@@ -649,7 +649,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    backgroundColor: theme.colors.backgroundAlt,
+    backgroundColor: "#FCFAF5",
     borderRadius: 999,
     borderWidth: 1,
     borderColor: theme.colors.border,
@@ -678,17 +678,17 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   answerGrid: {
-    gap: 12
+    gap: 10
   },
   continueButtonWrap: {
     marginTop: 6
   },
   answerCard: {
-    minHeight: 72,
+    minHeight: 68,
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    backgroundColor: theme.colors.backgroundAlt,
+    backgroundColor: "#FCFAF5",
     alignItems: "center",
     justifyContent: "center"
   },
@@ -713,13 +713,13 @@ const styles = StyleSheet.create({
     writingDirection: "rtl"
   },
   feedbackCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.lg,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    gap: 8
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    gap: 6
   },
   feedback: {
     fontSize: 16,
@@ -749,22 +749,22 @@ const styles = StyleSheet.create({
     color: theme.colors.mutedText
   },
   reviewHint: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.lg,
-    paddingHorizontal: 16,
-    paddingVertical: 12
+    paddingHorizontal: 14,
+    paddingVertical: 10
   },
   reviewText: {
     fontSize: 14,
     color: theme.colors.mutedText
   },
   finishCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.xl,
-    padding: 16,
-    gap: 12,
+    padding: 14,
+    gap: 10,
     borderWidth: 1,
     borderColor: theme.colors.border
   },

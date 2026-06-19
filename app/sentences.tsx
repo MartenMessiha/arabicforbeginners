@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { FlipCard } from "../components/FlipCard";
 import { LearningCard } from "../components/LearningCard";
 import { PrimaryButton } from "../components/PrimaryButton";
@@ -32,7 +32,7 @@ export default function SentenceLevelScreen() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} stickyHeaderIndices={[0]}>
       <ScreenHeader
         title="Stufe 3: Sätze lesen"
         subtitle="Lies den Satz. Tippe für Franko und Bedeutung."
@@ -84,43 +84,46 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 12,
+    paddingTop: 6,
     paddingBottom: theme.spacing.xl,
-    gap: 12,
+    gap: 8,
     backgroundColor: theme.colors.background
   },
   arabicSentence: {
-    fontSize: 32,
-    lineHeight: 46,
+    fontSize: Platform.select({ ios: 32, android: 30, default: 32 }),
+    lineHeight: Platform.select({ ios: 46, android: 42, default: 46 }),
     textAlign: "right",
     writingDirection: "rtl",
     color: theme.colors.text
   },
   franko: {
     textAlign: "center",
-    fontSize: 22,
+    fontSize: Platform.select({ ios: 22, android: 21, default: 22 }),
+    lineHeight: 28,
     color: theme.colors.text,
     fontWeight: "700",
     marginBottom: 8
   },
   meaning: {
     textAlign: "center",
-    fontSize: 18,
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: Platform.select({ ios: 24, android: 22, default: 24 }),
     color: theme.colors.mutedText
   },
   actions: {
-    gap: 10
+    gap: 8
   },
   statusCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 9,
-    paddingHorizontal: 12
+    paddingVertical: 8,
+    paddingHorizontal: 11
   },
   statusText: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    lineHeight: 18,
     color: theme.colors.accent,
     fontWeight: "600"
   },
@@ -133,7 +136,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   progressLabel: {
-    fontSize: 14,
+    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
     color: theme.colors.mutedText
   }
 });

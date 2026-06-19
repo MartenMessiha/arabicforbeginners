@@ -117,6 +117,7 @@ export default function WritingLevelScreen() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <ScrollView
           contentContainerStyle={[styles.container, compactLayout && styles.containerCompact]}
+          stickyHeaderIndices={[0]}
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="on-drag"
           automaticallyAdjustKeyboardInsets
@@ -301,14 +302,14 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 12,
+    paddingTop: 6,
     paddingBottom: 160,
-    gap: theme.spacing.md,
+    gap: 8,
     backgroundColor: theme.colors.background
   },
   containerCompact: {
-    paddingTop: 8,
-    gap: 10,
+    paddingTop: 4,
+    gap: 5,
     paddingBottom: 180
   },
   introCard: {
