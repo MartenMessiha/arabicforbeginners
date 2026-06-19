@@ -230,6 +230,7 @@ export default function LettersPlusScreen() {
           <Text style={[styles.quizSymbol, compactLayout && styles.quizSymbolCompact]}>
             {currentQuestionEntry.symbol}
           </Text>
+          <Text style={styles.quizSymbolExample}>{currentQuestionEntry.exampleArabic}</Text>
         </View>
         <View style={styles.quizOptions}>
           {currentQuestion.options.map((option) => {
@@ -642,12 +643,23 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7
   },
   quizSymbol: {
-    fontSize: 48,
+    fontSize: 70,
+    lineHeight: 74,
     color: theme.colors.accent,
     fontWeight: "700"
   },
   quizSymbolCompact: {
-    fontSize: 38
+    fontSize: 58,
+    lineHeight: 60
+  },
+  quizSymbolExample: {
+    fontSize: 22,
+    lineHeight: 28,
+    color: theme.colors.text,
+    writingDirection: "rtl",
+    textAlign: "center",
+    marginTop: 2,
+    fontWeight: "700"
   },
   quizOptions: {
     gap: 8
