@@ -62,7 +62,7 @@ export default function VersesLevelScreen() {
     () =>
       sections.map((section) => ({
         ...section,
-        subtitle: `${section.verses.length} kurze Stellen von 100`
+        subtitle: `${section.verses.length} Beispiele`
       })),
     [sections]
   );
@@ -153,18 +153,18 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 6,
+    paddingTop: 4,
     paddingBottom: theme.spacing.xl,
-    gap: 8,
+    gap: 14,
     backgroundColor: theme.colors.background
   },
   liturgicalCard: {
-    backgroundColor: "#FBF8F1",
+    backgroundColor: "#F3F8F1",
     borderRadius: theme.radius.xl,
     borderWidth: 1,
-    borderColor: theme.colors.accent,
-    padding: 14,
-    gap: 6
+    borderColor: "rgba(66,107,79,0.24)",
+    padding: 18,
+    gap: 8
   },
   liturgicalTag: {
     fontSize: 12,
@@ -174,21 +174,21 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   liturgicalTitle: {
-    fontSize: Platform.select({ ios: 19, android: 18, default: 19 }),
-    lineHeight: Platform.select({ ios: 25, android: 23, default: 25 }),
+    fontSize: Platform.select({ ios: 21, android: 20, default: 21 }),
+    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
     color: theme.colors.text,
     fontWeight: "700"
   },
   liturgicalText: {
-    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    fontSize: 14,
+    lineHeight: 21,
     color: theme.colors.mutedText
   },
   orderRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 7,
-    marginTop: 2
+    gap: 8,
+    marginTop: 4
   },
   orderPill: {
     backgroundColor: theme.colors.surface,
@@ -204,50 +204,50 @@ const styles = StyleSheet.create({
     color: theme.colors.text
   },
   introCard: {
-    backgroundColor: "#FBF8F1",
+    backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: 14,
-    gap: 6
+    padding: 18,
+    gap: 8
   },
   introTitle: {
-    fontSize: Platform.select({ ios: 17, android: 16, default: 17 }),
+    fontSize: Platform.select({ ios: 19, android: 18, default: 19 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   introText: {
-    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    fontSize: 14,
+    lineHeight: 21,
     color: theme.colors.mutedText
   },
   statusCard: {
-    backgroundColor: "#FBF8F1",
-    borderRadius: theme.radius.lg,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 8,
-    paddingHorizontal: 11
+    paddingVertical: 12,
+    paddingHorizontal: 14
   },
   statusText: {
-    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
-    lineHeight: 18,
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
+    lineHeight: 20,
     color: theme.colors.accent,
     fontWeight: "600"
   },
   list: {
-    gap: 8
+    gap: 12
   },
   verseStack: {
-    gap: 8
+    gap: 10
   },
   verseCard: {
     backgroundColor: theme.colors.backgroundAlt,
     borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    padding: 12,
-    gap: 6
+    padding: 16,
+    gap: 8
   },
   verseCardExpanded: {
     backgroundColor: theme.colors.accentSoft,
@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.995 }]
   },
   arabic: {
-    fontSize: Platform.select({ ios: 28, android: 26, default: 28 }),
-    lineHeight: Platform.select({ ios: 38, android: 36, default: 38 }),
+    fontSize: Platform.select({ ios: 24, android: 23, default: 24 }),
+    lineHeight: Platform.select({ ios: 36, android: 34, default: 36 }),
     textAlign: "right",
     writingDirection: "rtl",
     color: theme.colors.text
@@ -286,18 +286,18 @@ const styles = StyleSheet.create({
     gap: 8
   },
   franko: {
-    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    fontSize: 17,
     lineHeight: 24,
     color: theme.colors.text,
     fontWeight: "700"
   },
   german: {
-    fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
-    lineHeight: Platform.select({ ios: 24, android: 22, default: 24 }),
+    fontSize: 15,
+    lineHeight: 22,
     color: theme.colors.mutedText
   },
   revealHint: {
-    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
+    fontSize: 13,
     lineHeight: 18,
     color: theme.colors.mutedText
   }

@@ -12,12 +12,7 @@ export function ScreenHeader({ title, subtitle }: Props) {
   const insets = useSafeAreaInsets();
 
   return (
-    <View
-      style={[
-        styles.wrap,
-        { paddingTop: Math.max(insets.top, Platform.select({ ios: 2, android: 2, default: 2 })) }
-      ]}
-    >
+    <View style={[styles.wrap, { paddingTop: Math.max(insets.top, 8) }]}>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel="Zurück"
@@ -47,7 +42,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     zIndex: 20,
     elevation: 2,
-    paddingBottom: 0
+    paddingBottom: 6,
+    marginBottom: 2
   },
   backButton: {
     alignSelf: "flex-start",

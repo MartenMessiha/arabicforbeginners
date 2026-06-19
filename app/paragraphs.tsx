@@ -91,50 +91,50 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 6,
+    paddingTop: 2,
     paddingBottom: theme.spacing.xl,
-    gap: 8,
+    gap: 12,
     backgroundColor: theme.colors.background
   },
   arabicParagraph: {
-    fontSize: Platform.select({ ios: 25, android: 24, default: 25 }),
-    lineHeight: Platform.select({ ios: 40, android: 38, default: 40 }),
+    fontSize: Platform.select({ ios: 27, android: 26, default: 27 }),
+    lineHeight: Platform.select({ ios: 42, android: 40, default: 42 }),
     color: theme.colors.text,
     textAlign: "right",
     writingDirection: "rtl",
-    marginBottom: theme.spacing.md
+    marginBottom: theme.spacing.lg
   },
   franko: {
-    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
-    lineHeight: Platform.select({ ios: 26, android: 24, default: 26 }),
+    fontSize: Platform.select({ ios: 19, android: 18, default: 19 }),
+    lineHeight: Platform.select({ ios: 27, android: 25, default: 27 }),
     color: theme.colors.text,
-    marginTop: 12
+    marginTop: 14
   },
   meaning: {
-    fontSize: Platform.select({ ios: 17, android: 16, default: 17 }),
-    lineHeight: Platform.select({ ios: 25, android: 23, default: 25 }),
+    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
+    lineHeight: Platform.select({ ios: 26, android: 24, default: 26 }),
     color: theme.colors.mutedText,
-    marginTop: 10
+    marginTop: 12
   },
   actions: {
-    gap: 8
+    gap: 10
   },
   statusCard: {
-    backgroundColor: "#FBF8F1",
-    borderRadius: theme.radius.lg,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    paddingVertical: 8,
-    paddingHorizontal: 11
+    paddingVertical: 12,
+    paddingHorizontal: 14
   },
   statusText: {
-    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
-    lineHeight: 18,
+    fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
+    lineHeight: 20,
     color: theme.colors.accent,
     fontWeight: "600"
   },
   progressBlock: {
-    gap: 6
+    gap: 8
   },
   progressRow: {
     flexDirection: "row",
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   progressLabel: {
-    fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),
+    fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
     color: theme.colors.mutedText
   }
 });

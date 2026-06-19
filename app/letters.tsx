@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 4,
+    paddingTop: 2,
     paddingBottom: theme.spacing.xl,
     gap: 12,
     backgroundColor: theme.colors.background

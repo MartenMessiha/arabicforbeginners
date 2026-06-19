@@ -1,11 +1,12 @@
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
-import { Platform, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { DropdownSection } from "../components/DropdownSection";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { diacritics } from "../data/diacritics";
 import { letters } from "../data/letters";
+import { verses } from "../data/verses";
 import { theme } from "../theme/theme";
 import { ProgressBar } from "../components/ProgressBar";
 import { useLearningProgress } from "../utils/learningProgress";
@@ -30,6 +31,10 @@ export default function HomeScreen() {
     } as const;
   }, []);
 
+  function exampleLabel(count: number) {
+    return `${count} Beispiele`;
+  }
+
   return (
     <ScrollView
       contentContainerStyle={[
@@ -40,35 +45,12 @@ export default function HomeScreen() {
       bounces={false}
     >
       <View style={styles.hero}>
-        <View style={styles.topRow}>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Zurück"
-            onPress={() => {
-              if (router.canGoBack()) {
-                router.back();
-                return;
-              }
-              router.replace("/");
-            }}
-            style={({ pressed }) => [styles.backButton, pressed && styles.backButtonPressed]}
-          >
-            <Text style={styles.backButtonText}>← Zurück</Text>
-          </Pressable>
-
-          <View style={styles.homeBadge}>
-            <Text style={styles.homeBadgeText}>Lernpfad</Text>
-          </View>
-        </View>
-
         <View style={styles.heroHeading}>
           <Text style={styles.heroTitle}>Arabisch lesen</Text>
-          <Text style={styles.heroSubtitle}>
-            Lerne Buchstaben, Zeichen und Wörter in ruhigen Schritten.
-          </Text>
+          <Text style={styles.heroSubtitle}>Buchstaben, Zeichen und Texte in ruhigen Schritten.</Text>
         </View>
 
-        <View style={[styles.focusCard, compactLayout && styles.focusCardCompact]}>
+        <View style={[styles.overviewCard, compactLayout && styles.overviewCardCompact]}>
           <View style={styles.focusHeader}>
             <View>
               <Text style={styles.focusLabel}>Weiterlernen</Text>
@@ -81,22 +63,7 @@ export default function HomeScreen() {
           <Text style={styles.focusText}>
             Setze genau dort fort, wo du aufgehört hast. So bleibt der Lernfluss ruhig und klar.
           </Text>
-          <View style={styles.focusActions}>
-            <PrimaryButton
-              label="Weiter lernen"
-              onPress={() => router.push(learningPath.route)}
-              style={styles.focusPrimaryButton}
-            />
-            <PrimaryButton
-              label="Neu starten"
-              variant="ghost"
-              onPress={() => setOpenSection("letters")}
-              style={styles.focusSecondaryButton}
-            />
-          </View>
-        </View>
 
-        <View style={[styles.goalCard, compactLayout && styles.goalCardCompact]}>
           <View style={styles.goalRow}>
             <View>
               <Text style={styles.goalLabel}>Tagesziel</Text>
@@ -112,6 +79,20 @@ export default function HomeScreen() {
           <Text style={styles.goalHint}>
             Ein kleiner Lernschritt für diese Sitzung. Lokal, ruhig und ohne Konto.
           </Text>
+
+          <View style={styles.focusActions}>
+            <PrimaryButton
+              label="Weiter lernen"
+              onPress={() => router.push(learningPath.route)}
+              style={styles.focusPrimaryButton}
+            />
+            <PrimaryButton
+              label="Neu starten"
+              variant="ghost"
+              onPress={() => setOpenSection("letters")}
+              style={styles.focusSecondaryButton}
+            />
+          </View>
         </View>
 
       </View>
@@ -122,7 +103,7 @@ export default function HomeScreen() {
           subtitle="Buchstabenformen sicher erkennen."
           icon="1"
           featured
-          badge={`${displayTotals.letters}`}
+          badge={`${displayTotals.letters} Zeichen`}
           expanded={openSection === "letters"}
           onPress={() => setOpenSection((current) => (current === "letters" ? "" : "letters"))}
         >
@@ -136,7 +117,7 @@ export default function HomeScreen() {
           title="Stufe 1+: Vokalzeichen"
           subtitle="Die Zeichen über und unter den Buchstaben."
           icon="+"
-          badge={`${displayTotals.diacritics}`}
+          badge={`${displayTotals.diacritics} Zeichen`}
           expanded={openSection === "letters-plus"}
           onPress={() =>
             setOpenSection((current) => (current === "letters-plus" ? "" : "letters-plus"))
@@ -153,7 +134,7 @@ export default function HomeScreen() {
           title="Stufe 2: Wörter"
           subtitle="Wörter ruhig lesen."
           icon="2"
-          badge={`${displayTotals.words}`}
+          badge={exampleLabel(displayTotals.words)}
           expanded={openSection === "words"}
           onPress={() => setOpenSection((current) => (current === "words" ? "" : "words"))}
         >
@@ -167,7 +148,7 @@ export default function HomeScreen() {
           title="Stufe 3: Sätze"
           subtitle="Sätze ruhig erfassen."
           icon="3"
-          badge={`${displayTotals.sentences}`}
+          badge={exampleLabel(displayTotals.sentences)}
           expanded={openSection === "sentences"}
           onPress={() => setOpenSection((current) => (current === "sentences" ? "" : "sentences"))}
         >
@@ -181,7 +162,7 @@ export default function HomeScreen() {
           title="Stufe 4: Absätze"
           subtitle="Längere Texte ruhig lesen."
           icon="4"
-          badge={`${displayTotals.paragraphs}`}
+          badge={exampleLabel(displayTotals.paragraphs)}
           expanded={openSection === "paragraphs"}
           onPress={() => setOpenSection((current) => (current === "paragraphs" ? "" : "paragraphs"))}
         >
@@ -195,7 +176,7 @@ export default function HomeScreen() {
           title="Stufe 5: Verse"
           subtitle="Bibel, Agpeya und Liturgie getrennt üben."
           icon="5"
-          badge={`${displayTotals.verses}`}
+          badge={`${verses.length} Beispiele`}
           expanded={openSection === "verses"}
           onPress={() => setOpenSection((current) => (current === "verses" ? "" : "verses"))}
         >
@@ -210,7 +191,7 @@ export default function HomeScreen() {
           title="Stufe 6: Schreiben"
           subtitle="Wörter selbst auf Arabisch schreiben."
           icon="6"
-          badge={`${displayTotals.writing}`}
+          badge={exampleLabel(displayTotals.writing)}
           expanded={openSection === "writing"}
           onPress={() => setOpenSection((current) => (current === "writing" ? "" : "writing"))}
         >
@@ -228,86 +209,47 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 4,
+    paddingTop: 2,
     paddingBottom: theme.spacing.xl,
-    gap: 6,
+    gap: 8,
     backgroundColor: theme.colors.background
   },
   containerCompact: {
-    paddingTop: 4,
-    gap: 5
+    paddingTop: 2,
+    gap: 6
   },
   hero: {
-    gap: 10
-  },
-  topRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 0
-  },
-  backButton: {
-    alignSelf: "flex-start",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 999,
-    backgroundColor: "#FCFAF5",
-    borderWidth: 1,
-    borderColor: theme.colors.border
-  },
-  backButtonPressed: {
-    opacity: 0.86,
-    transform: [{ scale: 0.98 }]
-  },
-  backButtonText: {
-    fontSize: 14,
-    color: theme.colors.text,
-    fontWeight: "600"
-  },
-  homeBadge: {
-    backgroundColor: "#EEF4EA",
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6
-  },
-  homeBadgeText: {
-    fontSize: 12,
-    color: theme.colors.accent,
-    fontWeight: "700",
-    letterSpacing: 0.3
+    gap: 5
   },
   heroHeading: {
-    gap: 6,
-    paddingTop: 2
+    gap: 3,
+    paddingTop: 0
   },
   heroTitle: {
-    fontSize: Platform.select({ ios: 34, android: 32, default: 34 }),
-    lineHeight: Platform.select({ ios: 36, android: 34, default: 36 }),
+    fontSize: Platform.select({ ios: 31, android: 30, default: 31 }),
+    lineHeight: Platform.select({ ios: 32, android: 31, default: 32 }),
     color: theme.colors.text,
     fontFamily: theme.fonts.display,
     fontWeight: "700"
   },
   heroSubtitle: {
     fontSize: Platform.select({ ios: 16, android: 15, default: 16 }),
-    lineHeight: Platform.select({ ios: 23, android: 21, default: 23 }),
+    lineHeight: Platform.select({ ios: 21, android: 19, default: 21 }),
     color: theme.colors.mutedText,
-    maxWidth: 320
+    maxWidth: 310
   },
-  continueCard: {
-    display: "none"
-  },
-  focusCard: {
+  overviewCard: {
     backgroundColor: theme.colors.surface,
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
-    padding: 16,
-    gap: 10,
+    padding: 13,
+    gap: 8,
     marginTop: 0
   },
-  focusCardCompact: {
-    padding: 14,
-    gap: 8
+  overviewCardCompact: {
+    padding: 12,
+    gap: 7
   },
   focusHeader: {
     flexDirection: "row",
@@ -322,8 +264,8 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   focusTitle: {
-    fontSize: Platform.select({ ios: 22, android: 21, default: 22 }),
-    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
+    fontSize: Platform.select({ ios: 21, android: 20, default: 21 }),
+    lineHeight: Platform.select({ ios: 25, android: 23, default: 25 }),
     color: theme.colors.text,
     fontWeight: "700",
     marginTop: 0
@@ -341,12 +283,12 @@ const styles = StyleSheet.create({
   },
   focusText: {
     fontSize: Platform.select({ ios: 15, android: 14, default: 15 }),
-    lineHeight: Platform.select({ ios: 22, android: 20, default: 22 }),
+    lineHeight: Platform.select({ ios: 21, android: 19, default: 21 }),
     color: theme.colors.mutedText
   },
   focusActions: {
     flexDirection: "column",
-    gap: 10,
+    gap: 8,
     paddingTop: 2
   },
   focusPrimaryButton: {
@@ -354,18 +296,6 @@ const styles = StyleSheet.create({
   },
   focusSecondaryButton: {
     width: "100%"
-  },
-  goalCard: {
-    backgroundColor: "#FBF8F1",
-    borderColor: theme.colors.border,
-    borderWidth: 1,
-    borderRadius: theme.radius.xl,
-    padding: 16,
-    gap: 8,
-    marginTop: 2
-  },
-  goalCardCompact: {
-    padding: 14
   },
   goalRow: {
     flexDirection: "row",
@@ -396,12 +326,12 @@ const styles = StyleSheet.create({
   },
   goalHint: {
     fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    lineHeight: Platform.select({ ios: 18, android: 16, default: 18 }),
     color: theme.colors.mutedText
   },
   dropdownList: {
-    gap: 8,
-    marginTop: 6
+    gap: 7,
+    marginTop: 0
   },
   dropdownText: {
     fontSize: Platform.select({ ios: 14, android: 13, default: 14 }),

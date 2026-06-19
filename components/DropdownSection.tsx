@@ -61,22 +61,22 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.xl,
     borderWidth: 1,
-    borderColor: "rgba(36,57,44,0.10)",
+    borderColor: "rgba(36,57,44,0.08)",
     overflow: "hidden",
     shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 20,
-    shadowOffset: { width: 0, height: 7 },
-    elevation: 2
+    shadowOpacity: 0.035,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 1
   },
   featuredCard: {
-    borderColor: theme.colors.accent,
-    backgroundColor: "#F3F8F1"
+    borderColor: "rgba(66,107,79,0.28)",
+    backgroundColor: "#F5FAF3"
   },
   header: {
-    paddingHorizontal: 16,
-    paddingVertical: Platform.select({ ios: 14, android: 12, default: 14 }),
-    gap: 6
+    paddingHorizontal: 15,
+    paddingVertical: Platform.select({ ios: 12, android: 11, default: 12 }),
+    gap: 5
   },
   pressed: {
     backgroundColor: theme.colors.backgroundAlt
@@ -105,14 +105,14 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   title: {
-    fontSize: Platform.select({ ios: 18, android: 17, default: 18 }),
-    lineHeight: Platform.select({ ios: 22, android: 20, default: 22 }),
+    fontSize: Platform.select({ ios: 17, android: 16, default: 17 }),
+    lineHeight: Platform.select({ ios: 21, android: 19, default: 21 }),
     color: theme.colors.text,
     fontWeight: "700"
   },
   subtitle: {
     fontSize: Platform.select({ ios: 13, android: 12, default: 13 }),
-    lineHeight: Platform.select({ ios: 19, android: 17, default: 19 }),
+    lineHeight: Platform.select({ ios: 18, android: 16, default: 18 }),
     color: theme.colors.mutedText
   },
   metaRow: {
@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
     fontWeight: "700"
   },
   body: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 15,
     paddingTop: 0,
-    paddingBottom: Platform.select({ ios: 14, android: 12, default: 14 }),
-    gap: 10,
+    paddingBottom: Platform.select({ ios: 12, android: 10, default: 12 }),
+    gap: 8,
     borderTopWidth: 1,
     borderTopColor: theme.colors.border
   }

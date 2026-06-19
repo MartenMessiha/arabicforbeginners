@@ -187,49 +187,10 @@ export default function WritingLevelScreen() {
             <View style={[styles.inputCard, result === "correct" && styles.inputCardCorrect, result === "wrong" && styles.inputCardWrong]}>
               <View style={styles.inputHeader}>
                 <Text style={styles.inputLabel}>Arabisch schreiben</Text>
-                <Text style={styles.inputHint}>Beginne rechts. Harakat sind hier nicht nötig.</Text>
+                <Text style={styles.inputHint}>Beginne rechts. Die Tastatur verdeckt nichts.</Text>
               </View>
 
-              <View style={styles.writingGuideRow}>
-                <View style={styles.writingGuideChip}>
-                  <Text style={styles.writingGuideChipText}>Rechts starten</Text>
-                </View>
-                <View style={styles.writingGuideChip}>
-                  <Text style={styles.writingGuideChipText}>Langsam schreiben</Text>
-                </View>
-                <View style={styles.writingGuideChip}>
-                  <Text style={styles.writingGuideChipText}>Ohne Vokalzeichen</Text>
-                </View>
-              </View>
-
-              <View style={styles.writingSurface}>
-                <View style={styles.writingSurfaceTopBand}>
-                  <Text style={styles.writingSurfaceTopBandText}>Liniertes Blatt</Text>
-                </View>
-                <View style={styles.writingSurfaceHeader}>
-                  <Text style={styles.writingSurfaceHeaderText}>Heftlinie</Text>
-                  <Text style={styles.writingSurfaceHeaderHint}>Arabisch beginnt rechts.</Text>
-                </View>
-                <View style={styles.writingSurfaceStartMark} />
-                <View style={styles.writingSurfaceMargin} />
-                <View style={styles.writingSurfaceGrid}>
-                  {[0, 1, 2, 3, 4, 5].map((line) => (
-                    <View
-                      key={line}
-                      style={[
-                        styles.writingSurfaceLine,
-                        line === 1 && styles.writingSurfaceLineSecond,
-                        line === 2 && styles.writingSurfaceLineThird,
-                        line === 3 && styles.writingSurfaceLineFourth,
-                        line === 4 && styles.writingSurfaceLineFifth,
-                        line === 5 && styles.writingSurfaceLineSixth
-                      ]}
-                    />
-                  ))}
-                </View>
-                <View style={styles.writingSurfaceFooter}>
-                  <Text style={styles.writingSurfaceFooterText}>Langsam schreiben und dann prüfen.</Text>
-                </View>
+              <View style={styles.inputField}>
                 <TextInput
                   ref={inputRef}
                   value={inputValue}
@@ -302,27 +263,27 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 6,
+    paddingTop: 2,
     paddingBottom: 160,
-    gap: 8,
+    gap: 12,
     backgroundColor: theme.colors.background
   },
   containerCompact: {
-    paddingTop: 4,
-    gap: 5,
+    paddingTop: 2,
+    gap: 8,
     paddingBottom: 180
   },
   introCard: {
-    backgroundColor: theme.colors.accentSoft,
+    backgroundColor: "#F3F8F1",
     borderWidth: 1,
-    borderColor: theme.colors.accent,
+    borderColor: "rgba(66,107,79,0.24)",
     borderRadius: theme.radius.xl,
-    padding: theme.spacing.md,
-    gap: 8
+    padding: 18,
+    gap: 10
   },
   introCardCompact: {
-    padding: 12,
-    gap: 6
+    padding: 14,
+    gap: 8
   },
   introTag: {
     fontSize: 12,
@@ -332,28 +293,28 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   introTitle: {
-    fontSize: 18,
-    lineHeight: 24,
+    fontSize: Platform.select({ ios: 21, android: 20, default: 21 }),
+    lineHeight: Platform.select({ ios: 28, android: 26, default: 28 }),
     fontWeight: "700",
     color: theme.colors.text
   },
   introText: {
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 14,
+    lineHeight: 21,
     color: theme.colors.mutedText
   },
   difficultyRow: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8
+    gap: 10
   },
   difficultyChip: {
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 8
+    paddingHorizontal: 14,
+    paddingVertical: 10
   },
   difficultyChipActive: {
     backgroundColor: theme.colors.accentSoft,
@@ -363,7 +324,7 @@ const styles = StyleSheet.create({
     opacity: 0.92
   },
   difficultyChipText: {
-    fontSize: 13,
+    fontSize: 14,
     color: theme.colors.text,
     fontWeight: "700"
   },
@@ -371,15 +332,15 @@ const styles = StyleSheet.create({
     color: theme.colors.accent
   },
   boardCard: {
-    backgroundColor: theme.colors.accentSoft,
-    borderColor: theme.colors.accent,
+    backgroundColor: theme.colors.surface,
+    borderColor: "rgba(66,107,79,0.24)",
     borderWidth: 1,
-    padding: 14,
-    gap: 10
+    padding: 18,
+    gap: 12
   },
   boardCardCompact: {
-    padding: 12,
-    gap: 8
+    padding: 14,
+    gap: 10
   },
   practiceHeader: {
     flexDirection: "row",
@@ -396,7 +357,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   practiceTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "700",
     color: theme.colors.text,
     marginTop: 2
@@ -419,13 +380,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 6,
+    padding: 16,
+    gap: 8,
     marginBottom: 10
   },
   promptCardCompact: {
-    padding: 12,
-    gap: 5
+    padding: 14,
+    gap: 6
   },
   promptLabel: {
     fontSize: 12,
@@ -435,19 +396,19 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7
   },
   promptMeaning: {
-    fontSize: 20,
-    lineHeight: 28,
+    fontSize: 22,
+    lineHeight: 30,
     color: theme.colors.text,
     fontWeight: "700"
   },
   promptFranko: {
-    fontSize: 15,
-    lineHeight: 20,
+    fontSize: 16,
+    lineHeight: 22,
     color: theme.colors.accent,
     fontWeight: "700"
   },
   promptHint: {
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 18,
     color: theme.colors.mutedText,
     marginTop: 2
@@ -457,8 +418,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     backgroundColor: theme.colors.surface,
-    padding: 14,
-    gap: 8
+    padding: 16,
+    gap: 10
   },
   inputCardCorrect: {
     borderColor: theme.colors.accent,
@@ -468,169 +429,55 @@ const styles = StyleSheet.create({
     borderColor: "#D77A7A",
     backgroundColor: "#FDECEC"
   },
+  inputField: {
+    minHeight: 112,
+    borderRadius: theme.radius.xl,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 18,
+    paddingVertical: 16,
+    justifyContent: "center"
+  },
   inputLabel: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "700",
     color: theme.colors.text
   },
   inputHeader: {
-    gap: 4
+    gap: 6
   },
   inputHint: {
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 18,
     color: theme.colors.mutedText
   },
-  writingGuideRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8
-  },
-  writingGuideChip: {
-    backgroundColor: theme.colors.backgroundAlt,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6
-  },
-  writingGuideChipText: {
-    fontSize: 12,
-    color: theme.colors.text,
-    fontWeight: "700"
-  },
-  writingSurface: {
-    position: "relative",
-    borderRadius: theme.radius.lg,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: "#FCFAF5",
-    overflow: "hidden"
-  },
-  writingSurfaceTopBand: {
-    position: "absolute",
-    top: 10,
-    left: 12,
-    right: 12,
-    zIndex: 2,
-    flexDirection: "row",
-    justifyContent: "flex-end"
-  },
-  writingSurfaceTopBandText: {
-    fontSize: 11,
-    fontWeight: "700",
-    color: theme.colors.accent,
-    backgroundColor: "rgba(95, 122, 100, 0.08)",
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    overflow: "hidden"
-  },
-  writingSurfaceHeader: {
-    position: "absolute",
-    top: 10,
-    left: 12,
-    zIndex: 2,
-    gap: 2
-  },
-  writingSurfaceHeaderText: {
-    fontSize: 11,
-    fontWeight: "700",
-    color: theme.colors.accent,
-    letterSpacing: 0.3
-  },
-  writingSurfaceHeaderHint: {
-    fontSize: 10,
-    color: theme.colors.mutedText
-  },
-  writingSurfaceStartMark: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 0,
-    width: 18,
-    backgroundColor: "rgba(95, 122, 100, 0.08)"
-  },
-  writingSurfaceMargin: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    right: 24,
-    width: 1,
-    backgroundColor: "rgba(95, 122, 100, 0.16)"
-  },
-  writingSurfaceGrid: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0
-  },
-  writingSurfaceLine: {
-    position: "absolute",
-    left: 16,
-    right: 16,
-    top: "20%",
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(95, 122, 100, 0.14)"
-  },
-  writingSurfaceLineSecond: {
-    top: "36%"
-  },
-  writingSurfaceLineThird: {
-    top: "52%"
-  },
-  writingSurfaceLineFourth: {
-    top: "68%"
-  },
-  writingSurfaceLineFifth: {
-    top: "84%"
-  },
-  writingSurfaceLineSixth: {
-    top: "92%"
-  },
-  writingSurfaceFooter: {
-    position: "absolute",
-    left: 12,
-    right: 34,
-    bottom: 10,
-    zIndex: 2,
-    alignItems: "flex-start"
-  },
-  writingSurfaceFooterText: {
-    fontSize: 10,
-    color: theme.colors.mutedText,
-    backgroundColor: "rgba(249, 247, 240, 0.88)",
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    overflow: "hidden"
-  },
   input: {
-    minHeight: 104,
+    minHeight: 72,
     borderRadius: theme.radius.lg,
     borderWidth: 0,
     backgroundColor: "transparent",
-    paddingHorizontal: 18,
-    paddingTop: 42,
-    paddingBottom: 24,
-    fontSize: 30,
+    paddingHorizontal: 4,
+    paddingTop: 0,
+    paddingBottom: 0,
+    fontSize: 32,
     color: theme.colors.text,
     writingDirection: "rtl",
     textAlign: "right",
-    textAlignVertical: "center"
+    textAlignVertical: "center",
+    fontFamily: theme.fonts.display
   },
   buttonStack: {
     gap: 10,
-    marginTop: 12
+    marginTop: 14
   },
   solutionCard: {
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 6
+    padding: 16,
+    gap: 8
   },
   solutionLabel: {
     fontSize: 12,
@@ -640,8 +487,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7
   },
   solutionArabic: {
-    fontSize: 32,
-    lineHeight: 40,
+    fontSize: 34,
+    lineHeight: 42,
     color: theme.colors.text,
     writingDirection: "rtl",
     textAlign: "right"
@@ -651,12 +498,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.xl,
-    padding: 14,
-    gap: 6
+    padding: 16,
+    gap: 8
   },
   feedbackText: {
-    fontSize: 15,
-    lineHeight: 21,
+    fontSize: 16,
+    lineHeight: 22,
     fontWeight: "700",
     color: theme.colors.text
   },
@@ -667,12 +514,12 @@ const styles = StyleSheet.create({
     color: "#B24B4B"
   },
   feedbackSubtext: {
-    fontSize: 12,
-    lineHeight: 18,
+    fontSize: 13,
+    lineHeight: 19,
     color: theme.colors.mutedText
   },
   progressBlock: {
-    gap: 8
+    gap: 10
   },
   progressRow: {
     flexDirection: "row",
@@ -681,7 +528,7 @@ const styles = StyleSheet.create({
     gap: 10
   },
   progressLabel: {
-    fontSize: 13,
+    fontSize: 12,
     color: theme.colors.mutedText,
     fontWeight: "700"
   }
