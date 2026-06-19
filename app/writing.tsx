@@ -206,9 +206,20 @@ export default function WritingLevelScreen() {
                   <Text style={styles.writingSurfaceTopBandText}>Start rechts</Text>
                 </View>
                 <View style={styles.writingSurfaceStartMark} />
-                <View style={styles.writingSurfaceLine} />
-                <View style={[styles.writingSurfaceLine, styles.writingSurfaceLineSecond]} />
-                <View style={[styles.writingSurfaceLine, styles.writingSurfaceLineThird]} />
+                <View style={styles.writingSurfaceMargin} />
+                <View style={styles.writingSurfaceGrid}>
+                  {[0, 1, 2, 3].map((line) => (
+                    <View
+                      key={line}
+                      style={[
+                        styles.writingSurfaceLine,
+                        line === 1 && styles.writingSurfaceLineSecond,
+                        line === 2 && styles.writingSurfaceLineThird,
+                        line === 3 && styles.writingSurfaceLineFourth
+                      ]}
+                    />
+                  ))}
+                </View>
                 <TextInput
                   ref={inputRef}
                   value={inputValue}
@@ -513,19 +524,37 @@ const styles = StyleSheet.create({
     width: 18,
     backgroundColor: "rgba(95, 122, 100, 0.08)"
   },
+  writingSurfaceMargin: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 24,
+    width: 1,
+    backgroundColor: "rgba(95, 122, 100, 0.16)"
+  },
+  writingSurfaceGrid: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
+  },
   writingSurfaceLine: {
     position: "absolute",
     left: 16,
     right: 16,
-    top: "36%",
+    top: "28%",
     borderBottomWidth: 1,
-    borderBottomColor: "rgba(95, 122, 100, 0.16)"
+    borderBottomColor: "rgba(95, 122, 100, 0.14)"
   },
   writingSurfaceLineSecond: {
-    top: "68%"
+    top: "48%"
   },
   writingSurfaceLineThird: {
-    top: "52%"
+    top: "68%"
+  },
+  writingSurfaceLineFourth: {
+    top: "84%"
   },
   input: {
     minHeight: 104,
