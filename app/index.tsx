@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     gap: 8
   },
   hero: {
-    gap: 10
+    gap: 8
   },
   topRow: {
     flexDirection: "row",
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 999,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FCFAF5",
     borderWidth: 1,
     borderColor: theme.colors.border
   },
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   homeBadge: {
-    backgroundColor: theme.colors.accentSoft,
+    backgroundColor: "#EEF4EA",
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6
@@ -302,19 +302,19 @@ const styles = StyleSheet.create({
   },
   title: {
     color: theme.colors.text,
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: 26,
+    lineHeight: 32,
     fontFamily: theme.fonts.display,
     fontWeight: "700"
   },
   titleCompact: {
-    fontSize: 24,
-    lineHeight: 30
+    fontSize: 23,
+    lineHeight: 28
   },
   subtitle: {
     color: theme.colors.mutedText,
     fontSize: 15,
-    lineHeight: 22
+    lineHeight: 21
   },
   subtitleCompact: {
     fontSize: 13,
@@ -324,13 +324,14 @@ const styles = StyleSheet.create({
     display: "none"
   },
   focusCard: {
-    backgroundColor: theme.colors.accentSoft,
+    backgroundColor: "#FBF8F1",
     borderColor: theme.colors.accent,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
     padding: 14,
     gap: 7,
-    marginTop: 2
+    marginTop: 2,
+    borderLeftWidth: 4
   },
   focusCardCompact: {
     padding: 10,
@@ -355,7 +356,7 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   focusBadge: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FCFAF5",
     borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6
@@ -381,7 +382,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   goalCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
@@ -431,7 +432,7 @@ const styles = StyleSheet.create({
     marginTop: 2
   },
   overviewCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FBF8F1",
     borderColor: theme.colors.border,
     borderWidth: 1,
     borderRadius: theme.radius.xl,
@@ -459,7 +460,7 @@ const styles = StyleSheet.create({
   statCard: {
     flexBasis: "31%",
     flexGrow: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: "#FCFAF5",
     borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
